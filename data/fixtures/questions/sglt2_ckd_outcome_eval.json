@@ -1,0 +1,89 @@
+{
+  "id": "q-sglt2-ckd-outcome-eval-001",
+  "raw_question": "Among adults with type 2 diabetes and chronic kidney disease who are already receiving an SGLT2 inhibitor, how could a research cohort be structured to evaluate a configurable clinical outcome during follow-up?",
+  "pico": {
+    "population": "Adults 18 years or older with type 2 diabetes mellitus (T2DM) and chronic kidney disease (CKD stages 1–5, excluding ESRD) with at least one SGLT2 inhibitor prescription in the identification window",
+    "population_detail": "Prevalent user design: patients who have an SGLT2 prescription in a defined identification window (rather than first-ever prescription). Index date = first qualifying SGLT2 prescription within the window. Minimum 12-month baseline lookback required.",
+    "intervention": "Ongoing SGLT2 inhibitor exposure (prevalent use; patients may have been on therapy before the identification window opens)",
+    "comparator": "Configurable at analysis time — options include: (a) no comparator (single-arm characterization), (b) DPP-4 inhibitor class, (c) GLP-1 receptor agonist class, (d) no add-on therapy. Comparator specification is required before outcomes analysis.",
+    "outcomes": [
+      "Configurable primary outcome (user-specified at run time — see outcome_options in structured_json)",
+      "eGFR-based CKD progression (default example: sustained 40% decline in eGFR from baseline, confirmed at two consecutive measurements)",
+      "MACE — major adverse cardiovascular events (non-fatal MI, non-fatal stroke, cardiovascular death)",
+      "Hospitalization for heart failure (primary diagnosis on inpatient claim or Encounter)",
+      "All-cause mortality (where data source provides death records)",
+      "eGFR slope (continuous outcome: mean annual rate of eGFR change during follow-up)"
+    ],
+    "timeframe": "Configurable follow-up period (default: 12 months from index date); configurable censoring rules (treatment discontinuation, data end, competing events). Maximum follow-up capped at data source coverage.",
+    "study_intent": "Study design template for evaluating configurable outcomes in a prevalent SGLT2 inhibitor user cohort — demonstrates how cohort definition parameters (comparator, outcome, follow-up, censoring) interact"
+  },
+  "ambiguity_flags": [
+    {
+      "field": "outcomes",
+      "description": "The primary clinical outcome is not defined — this is intentionally left configurable. Without a pre-specified primary outcome, inference is descriptive only and not hypothesis-testing",
+      "suggested_clarification": "Which outcome is the primary endpoint for this analysis? Select one from: CKD progression (eGFR decline), hospitalization for heart failure, MACE, all-cause mortality, or a custom outcome.",
+      "severity": "high"
+    },
+    {
+      "field": "comparator",
+      "description": "The comparator group is configurable, which affects study design (active comparator vs. no comparator) and the estimand. Each choice implies different confounding structures.",
+      "suggested_clarification": "Is this a single-arm characterization or a comparative effectiveness study? If comparative, which drug class is the active comparator?",
+      "severity": "high"
+    },
+    {
+      "field": "timeframe",
+      "description": "Exposure continuity definition is not specified — should patients be censored at treatment discontinuation, or is intention-to-treat follow-up used? Gap-tolerance (e.g., 30-day supply gap allowed) must be defined.",
+      "suggested_clarification": "How is SGLT2 inhibitor exposure continuity defined? What gap in days supply triggers treatment discontinuation and censoring?",
+      "severity": "medium"
+    },
+    {
+      "field": "population",
+      "description": "Prevalent user design introduces immortal time bias if not handled correctly. The index date definition must align with when exposure status is ascertained.",
+      "suggested_clarification": "How is the identification window defined? Should there be a minimum SGLT2 exposure duration before the index date to ensure stable exposure?",
+      "severity": "medium"
+    }
+  ],
+  "clarifying_questions": [
+    "Which clinical outcome is the pre-specified primary endpoint: CKD progression (eGFR decline), heart failure hospitalization, MACE, or another outcome?",
+    "Is this a single-arm descriptive study or a comparative effectiveness study requiring an active comparator group?",
+    "If comparative: which drug class serves as the active comparator (DPP-4 inhibitors, GLP-1 agonists, or sulfonylureas)?",
+    "How should SGLT2 exposure continuity be defined — days supply with a permissible gap (e.g., 30 days), or any prescription in a rolling window?",
+    "What is the minimum follow-up duration required for a patient to contribute to the outcome analysis?",
+    "How should censoring be handled for competing events (e.g., eGFR=0 for cardiovascular outcomes, or death for kidney outcomes)?"
+  ],
+  "structured_json": {
+    "study_design": "prevalent_user_cohort",
+    "icd10_anchors": ["E11", "N18"],
+    "rxnorm_ingredient_anchors": ["1545653", "1488564", "1373458", "2043678"],
+    "loinc_anchors": ["62238-1", "33914-3", "14959-1"],
+    "outcome_options": {
+      "kidney": {
+        "label": "CKD progression",
+        "definition": "Sustained 40% decline in eGFR from baseline confirmed at two consecutive measurements at least 90 days apart, or initiation of renal replacement therapy"
+      },
+      "cardiovascular": {
+        "label": "MACE",
+        "definition": "Composite of non-fatal myocardial infarction (ICD-10-CM I21.*), non-fatal ischemic stroke (I63.*), or cardiovascular death"
+      },
+      "heart_failure": {
+        "label": "Hospitalization for heart failure",
+        "definition": "Inpatient admission with primary diagnosis ICD-10-CM I50.* (heart failure)"
+      },
+      "mortality": {
+        "label": "All-cause mortality",
+        "definition": "Death from any cause during follow-up (requires death date in data source)"
+      }
+    },
+    "censoring_rules": [
+      "End of continuous data coverage",
+      "Treatment discontinuation (configurable gap tolerance, default 30 days)",
+      "Initiation of competing therapy (if active comparator design)",
+      "Occurrence of competing event (configurable)"
+    ],
+    "estimand_note": "Estimand must be pre-specified before analysis: treatment policy, hypothetical, or while-on-treatment. This template does not impose an estimand — researcher must define.",
+    "study_intent": "outcome_evaluation_template"
+  },
+  "created_at": "2025-06-29T00:00:00+00:00",
+  "status": "approved",
+  "source": "predefined"
+}

@@ -1,0 +1,14 @@
+{
+  "resourceType": "Condition",
+  "subject": {
+    "reference": "Patient/edge-pt-valid-01"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "code": "E11.9"
+      }
+    ]
+  }
+}

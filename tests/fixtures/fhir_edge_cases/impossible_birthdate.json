@@ -1,0 +1,33 @@
+{
+  "resourceType": "Bundle",
+  "id": "edge-impossible-birth",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "edge-pt-impossible-birth",
+        "gender": "male",
+        "birthDate": "2030-01-01",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "edge-enc-impossible",
+        "subject": {
+          "reference": "Patient/edge-pt-impossible-birth"
+        },
+        "status": "finished",
+        "class": {
+          "code": "AMB"
+        },
+        "period": {
+          "start": "2020-01-01",
+          "end": "2020-01-01"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "resourceType": "Encounter",
+  "id": "edge-enc-bad-dates",
+  "subject": {
+    "reference": "Patient/edge-pt-valid-01"
+  },
+  "status": "finished",
+  "class": {
+    "code": "AMB"
+  },
+  "period": {
+    "start": "2024-06-15",
+    "end": "2024-06-10"
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "id": "pheno-sglt2-ckd-t2dm-001",
+  "version": "0.3.1",
+  "name": "SGLT2 Inhibitor Cohort \u00e2\u20ac\u201d Type 2 Diabetes + Chronic Kidney Disease",
+  "description": "Computable phenotype for identifying adults with co-occurring type 2 diabetes mellitus and chronic kidney disease who receive SGLT2 inhibitor therapy, using ICD-10-CM diagnosis codes, RxNorm medication codes, and LOINC laboratory concepts applied to synthetic FHIR R4 patient data.",
+  "clinical_intent": "Descriptive retrospective cohort characterization for SGLT2 inhibitor research methodology demonstration. Not for clinical decision support or patient management.",
+  "question_id": "q-sglt2-ckd-t2dm-001",
+  "concepts": [
+    {
+      "concept_id": "c-t2dm",
+      "name": "Type 2 Diabetes Mellitus Diagnosis",
+      "clinical_intent": "Index condition \u00e2\u20ac\u201d patient must have documented T2DM diagnosis within the lookback period",
+      "fhir_resource": "Condition",
+      "notes": "ICD-10-CM E11.* subcategories included. Type 1 diabetes (E10.*) is not included.",
+      "mappings": [
+        {
+          "concept_id": "c-t2dm",
+          "concept_name": "Type 2 diabetes mellitus without complications",
+          "terminology_system": "ICD-10-CM",
+          "code": "E11.9",
+          "description": "Type 2 diabetes mellitus without complications",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; most common T2DM code in administrative data",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Code text is well-established in ICD-10-CM tabular; verification against FY2024 file pending."
+        },
+        {
+          "concept_id": "c-t2dm",
+          "concept_name": "Type 2 diabetes mellitus with hyperglycemia",
+          "terminology_system": "ICD-10-CM",
+          "code": "E11.65",
+          "description": "Type 2 diabetes mellitus with hyperglycemia",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; included because documented hyperglycemia commonly co-occurs in T2DM+CKD records",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Note: E11.65 = hyperglycemia (not a CKD combination code). Use alongside N18.x codes."
+        },
+        {
+          "concept_id": "c-t2dm",
+          "concept_name": "Type 2 diabetes mellitus with diabetic nephropathy",
+          "terminology_system": "ICD-10-CM",
+          "code": "E11.21",
+          "description": "Type 2 diabetes mellitus with diabetic nephropathy",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; diabetic nephropathy combination code capturing both T2DM and kidney complication",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Combination code; also assign N18.x for CKD stage per ICD-10-CM coding guidelines."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-ckd",
+      "name": "Chronic Kidney Disease Diagnosis (Stages 1\u00e2\u20ac\u201c5)",
+      "clinical_intent": "Co-condition \u00e2\u20ac\u201d patient must have documented CKD (stages 1\u00e2\u20ac\u201c5) to qualify; ESRD (stage 5D/N18.6) triggers exclusion rule",
+      "fhir_resource": "Condition",
+      "notes": "N18.6 (ESRD) is explicitly excluded via exclusion rule c-esrd-exclude. N18.9 (unspecified) is included as a fallback.",
+      "mappings": [
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 1",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.1",
+          "description": "Chronic kidney disease, stage 1",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Code text is well-established in ICD-10-CM tabular."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 2 (mild)",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.2",
+          "description": "Chronic kidney disease, stage 2 (mild)",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 3a",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.31",
+          "description": "Chronic kidney disease, stage 3a",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 3b",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.32",
+          "description": "Chronic kidney disease, stage 3b",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 4 (severe)",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.4",
+          "description": "Chronic kidney disease, stage 4 (severe)",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, stage 5",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.5",
+          "description": "Chronic kidney disease, stage 5",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; stage 5 without dialysis (pre-ESRD) is included",
+          "review_status": "candidate",
+          "confidence": "medium",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate \u00e2\u20ac\u201d clinical review required to confirm stage 5 (pre-dialysis) inclusion criteria."
+        },
+        {
+          "concept_id": "c-ckd",
+          "concept_name": "Chronic kidney disease, unspecified",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.9",
+          "description": "Chronic kidney disease, unspecified",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; included as fallback when specific CKD stage is not documented",
+          "review_status": "candidate",
+          "confidence": "medium",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate \u00e2\u20ac\u201d may reduce cohort specificity; consider excluding for stage-specific analyses."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-sglt2",
+      "name": "SGLT2 Inhibitor Medication",
+      "clinical_intent": "Index exposure \u00e2\u20ac\u201d at least one qualifying prescription on or after the index date",
+      "fhir_resource": "MedicationRequest",
+      "notes": "RxNorm ingredient-level concepts used for broad capture. All four RxCUI values are LLM-suggested from training data and HAVE NOT been verified against the live RxNorm API. Verification is required before any production use. See verification_date=null on each mapping.",
+      "mappings": [
+        {
+          "concept_id": "c-sglt2",
+          "concept_name": "empagliflozin",
+          "terminology_system": "RxNorm",
+          "code": "1545653",
+          "description": "empagliflozin (ingredient concept)",
+          "terminology_version": "2024AA",
+          "source_or_rationale": "RxNorm ingredient concept for empagliflozin; covers Jardiance and Synjardy. RxCUI derived from LLM training data \u00e2\u20ac\u201d pending live RxNorm API verification.",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": true,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "CANDIDATE \u00e2\u20ac\u201d LLM-suggested RxCUI. Must verify RxCUI 1545653 = empagliflozin ingredient via https://rxnav.nlm.nih.gov/REST/rxcui/1545653/properties before production use."
+        },
+        {
+          "concept_id": "c-sglt2",
+          "concept_name": "dapagliflozin",
+          "terminology_system": "RxNorm",
+          "code": "1488564",
+          "description": "dapagliflozin (ingredient concept \u00e2\u20ac\u201d pending verification)",
+          "terminology_version": "2024AA",
+          "source_or_rationale": "RxNorm ingredient concept for dapagliflozin; covers Farxiga. RxCUI derived from LLM training data \u00e2\u20ac\u201d pending live RxNorm API verification.",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": true,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "CANDIDATE \u00e2\u20ac\u201d LLM-suggested RxCUI. Must verify RxCUI 1488564 is the ingredient-level concept for dapagliflozin (not a product-level code) via RxNorm API."
+        },
+        {
+          "concept_id": "c-sglt2",
+          "concept_name": "canagliflozin",
+          "terminology_system": "RxNorm",
+          "code": "1373458",
+          "description": "canagliflozin (ingredient concept \u00e2\u20ac\u201d pending verification)",
+          "terminology_version": "2024AA",
+          "source_or_rationale": "RxNorm ingredient concept for canagliflozin; covers Invokana. RxCUI derived from LLM training data \u00e2\u20ac\u201d pending live RxNorm API verification.",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": true,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "CANDIDATE \u00e2\u20ac\u201d LLM-suggested RxCUI. Must verify RxCUI 1373458 is ingredient-level for canagliflozin via RxNorm API."
+        },
+        {
+          "concept_id": "c-sglt2",
+          "concept_name": "ertugliflozin",
+          "terminology_system": "RxNorm",
+          "code": "2043678",
+          "description": "ertugliflozin (ingredient concept \u00e2\u20ac\u201d pending verification)",
+          "terminology_version": "2024AA",
+          "source_or_rationale": "RxNorm ingredient concept for ertugliflozin; covers Steglatro. RxCUI derived from LLM training data \u00e2\u20ac\u201d pending live RxNorm API verification.",
+          "review_status": "candidate",
+          "confidence": "medium",
+          "is_llm_suggested": true,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "CANDIDATE \u00e2\u20ac\u201d LLM-suggested RxCUI. Less clinical trial evidence for ertugliflozin in CKD. Verify RxCUI 2043678 via RxNorm API; review inclusion criteria carefully."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-egfr",
+      "name": "Estimated Glomerular Filtration Rate (eGFR)",
+      "clinical_intent": "Baseline and follow-up laboratory measurement for CKD staging and outcome assessment",
+      "fhir_resource": "Observation",
+      "notes": "LOINC codes for eGFR are candidate mappings. Different eGFR equations (CKD-EPI, MDRD) use different LOINC codes. CKD-EPI 2021 is the current standard per KDIGO 2022.",
+      "mappings": [
+        {
+          "concept_id": "c-egfr",
+          "concept_name": "Glomerular filtration rate (CKD-EPI 2021 equation)",
+          "terminology_system": "LOINC",
+          "code": "62238-1",
+          "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by CKD-EPI 2021 equation",
+          "terminology_version": "LOINC v2.77",
+          "source_or_rationale": "LOINC tabular list; CKD-EPI 2021 equation is current standard per KDIGO 2022 guidelines. LOINC code from published LOINC table.",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d verify LOINC v2.77 code and local lab mapping before production use. Well-known LOINC code; verification against loinc.org pending."
+        },
+        {
+          "concept_id": "c-egfr",
+          "concept_name": "Glomerular filtration rate (MDRD equation)",
+          "terminology_system": "LOINC",
+          "code": "33914-3",
+          "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by MDRD formula",
+          "terminology_version": "LOINC v2.77",
+          "source_or_rationale": "LOINC tabular list; MDRD is legacy equation, may appear in older data from pre-2012 records",
+          "review_status": "candidate",
+          "confidence": "medium",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate \u00e2\u20ac\u201d MDRD is less accurate at higher eGFR values; prefer CKD-EPI 2021 where available. Verification pending."
+        },
+        {
+          "concept_id": "c-egfr",
+          "concept_name": "Microalbumin/creatinine ratio (UACR)",
+          "terminology_system": "LOINC",
+          "code": "14959-1",
+          "description": "Microalbumin/Creatinine [Mass Ratio] in Urine",
+          "terminology_version": "LOINC v2.77",
+          "source_or_rationale": "LOINC tabular list; UACR is a key CKD severity marker per KDIGO 2022 heat map (eGFR + albuminuria staging)",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate \u00e2\u20ac\u201d UACR is a secondary outcome variable, not the primary CKD staging criterion. Verification pending."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-esrd",
+      "name": "End-Stage Renal Disease (ESRD)",
+      "clinical_intent": "Exclusion criterion \u00e2\u20ac\u201d patients with ESRD are not eligible for this cohort per phenotype rule exc-001",
+      "fhir_resource": "Condition",
+      "notes": "N18.6 is the ICD-10-CM code for ESRD; patients with this code at or before index date are excluded. Added in v0.3.0 to operationalize exclusion rule exc-001.",
+      "mappings": [
+        {
+          "concept_id": "c-esrd",
+          "concept_name": "End stage renal disease",
+          "terminology_system": "ICD-10-CM",
+          "code": "N18.6",
+          "description": "End stage renal disease",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; standard code for ESRD used as exclusion per phenotype eligibility criteria",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Code text is well-established in ICD-10-CM. Added to operationalize exclusion rule exc-001 (ESRD exclusion)."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-dialysis",
+      "name": "Dialysis or Renal Replacement Therapy",
+      "clinical_intent": "Exclusion criterion \u00e2\u20ac\u201d patients on dialysis are not eligible per phenotype rule exc-002",
+      "fhir_resource": "Condition",
+      "notes": "Z99.2 captures dialysis dependence as a diagnosis code in ICD-10-CM. Added in v0.3.0 to operationalize exclusion rule exc-002.",
+      "mappings": [
+        {
+          "concept_id": "c-dialysis",
+          "concept_name": "Dependence on renal dialysis",
+          "terminology_system": "ICD-10-CM",
+          "code": "Z99.2",
+          "description": "Dependence on renal dialysis",
+          "terminology_version": "FY2024",
+          "source_or_rationale": "ICD-10-CM FY2024 tabular list; status code for ongoing dialysis dependence used as exclusion criterion",
+          "review_status": "candidate",
+          "confidence": "high",
+          "is_llm_suggested": false,
+          "verification_date": null,
+          "verification_source": null,
+          "notes": "Candidate mapping \u00e2\u20ac\u201d requires clinical review. Code text is well-established in ICD-10-CM. Added to operationalize exclusion rule exc-002 (dialysis exclusion)."
+        }
+      ]
+    },
+    {
+      "concept_id": "c-age",
+      "label": "Adult age (18+)",
+      "description": "Patient is an adult (age >= 18 years) at the index date",
+      "fhir_resource": "Patient",
+      "value_type": "demographic",
+      "mappings": [],
+      "name": "Adult age (18+)",
+      "clinical_intent": "Restrict cohort to adults; handled via CohortConfiguration.min_age_years parameter"
+    }
+  ],
+  "inclusion_rules": [
+    {
+      "rule_id": "inc-001",
+      "rule_type": "inclusion",
+      "concept_id": "c-t2dm",
+      "label": "T2DM diagnosis",
+      "logic": "At least 1 ICD-10-CM code from the T2DM concept (E11.*) recorded in Condition resource within the lookback period",
+      "lookback_days": 365,
+      "temporal_relationship": "before_or_on_index",
+      "required": true
+    },
+    {
+      "rule_id": "inc-002",
+      "rule_type": "inclusion",
+      "concept_id": "c-ckd",
+      "label": "CKD diagnosis (stages 1\u00e2\u20ac\u201c5)",
+      "logic": "At least 1 ICD-10-CM code from the CKD concept (N18.1\u00e2\u20ac\u201cN18.5, N18.9) recorded in Condition resource within the lookback period; N18.6 (ESRD) triggers exclusion rule",
+      "lookback_days": 365,
+      "temporal_relationship": "before_or_on_index",
+      "required": true
+    },
+    {
+      "rule_id": "inc-003",
+      "rule_type": "inclusion",
+      "concept_id": "c-sglt2",
+      "label": "SGLT2 inhibitor prescription",
+      "logic": "At least 1 MedicationRequest with RxNorm code from the SGLT2 concept on or after the index date",
+      "lookback_days": null,
+      "temporal_relationship": "on_or_after_index",
+      "required": true
+    },
+    {
+      "rule_id": "inc-004",
+      "rule_type": "inclusion",
+      "concept_id": "c-age",
+      "label": "Age 18 or older at index",
+      "logic": "Patient birth date implies age 18 years or older at the index date",
+      "lookback_days": null,
+      "temporal_relationship": "at_index",
+      "required": true
+    }
+  ],
+  "exclusion_rules": [
+    {
+      "rule_id": "exc-001",
+      "rule_type": "exclusion",
+      "concept_id": "c-esrd",
+      "label": "End-stage renal disease (ESRD)",
+      "logic": "Any ICD-10-CM code N18.6 (end stage renal disease) in Condition resource at or before the index date",
+      "lookback_days": null,
+      "temporal_relationship": "on_or_before_index",
+      "required": true
+    },
+    {
+      "rule_id": "exc-002",
+      "rule_type": "exclusion",
+      "concept_id": "c-dialysis",
+      "label": "Dialysis or renal replacement therapy",
+      "logic": "Any Condition resource with ICD-10-CM code Z99.2 (dependence on renal dialysis) at or before the index date",
+      "lookback_days": null,
+      "temporal_relationship": "on_or_before_index",
+      "required": true
+    }
+  ],
+  "fhir_mappings": [
+    {
+      "resource_type": "Condition",
+      "element_path": "code.coding.code",
+      "terminology_system_url": "http://hl7.org/fhir/sid/icd-10-cm",
+      "value": "E11",
+      "concept_id": "c-t2dm",
+      "notes": "Match on prefix E11 to capture all T2DM subcategory codes"
+    },
+    {
+      "resource_type": "Condition",
+      "element_path": "code.coding.code",
+      "terminology_system_url": "http://hl7.org/fhir/sid/icd-10-cm",
+      "value": "N18",
+      "concept_id": "c-ckd",
+      "notes": "Match on prefix N18 then filter by stage code; exclude N18.6"
+    },
+    {
+      "resource_type": "MedicationRequest",
+      "element_path": "medicationCodeableConcept.coding.code",
+      "terminology_system_url": "http://www.nlm.nih.gov/research/umls/rxnorm",
+      "value": null,
+      "concept_id": "c-sglt2",
+      "notes": "Match on ingredient-level RxNorm codes; use RxNorm expand API to retrieve product codes. All RxCUIs are LLM-suggested and require verification."
+    },
+    {
+      "resource_type": "Observation",
+      "element_path": "code.coding.code",
+      "terminology_system_url": "http://loinc.org",
+      "value": "62238-1",
+      "concept_id": "c-egfr",
+      "notes": "Primary eGFR LOINC code (CKD-EPI 2021); supplement with 33914-3 for legacy data"
+    }
+  ],
+  "lookback_period_days": 365,
+  "index_date_definition": "Date of the first qualifying SGLT2 inhibitor prescription (MedicationRequest) on or after the patient's first qualifying T2DM + CKD co-diagnosis date",
+  "review_status": "draft",
+  "created_at": "2025-01-15T10:00:00+00:00",
+  "updated_at": "2026-06-29T01:00:00+00:00",
+  "changelog": [
+    "0.3.0 (2026-06-29): Added c-esrd concept (N18.6) and c-dialysis concept (Z99.2) to operationalize exclusion rules exc-001 and exc-002; updated exc-001.concept_id=c-esrd, exc-002.concept_id=c-dialysis; exc-002 logic changed from CPT Procedure references to ICD-10-CM Z99.2 Condition reference for FHIR R4 implementation consistency",
+    "0.2.0 (2025-06-29): Added verification_date and verification_source fields (all null \u00e2\u20ac\u201d pending); corrected E11.65 concept_name from 'diabetic chronic kidney disease' to 'with hyperglycemia' (correct ICD-10-CM description); marked all 4 RxNorm codes as is_llm_suggested=true (RxCUIs from LLM training data, unverified via live API)",
+    "0.1.0 (2025-01-15): Initial draft phenotype definition; all mappings are candidate status pending clinical review"
+  ]
+}

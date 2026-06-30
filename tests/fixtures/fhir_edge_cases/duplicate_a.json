@@ -1,0 +1,7 @@
+{
+  "resourceType": "Patient",
+  "id": "edge-pt-duplicate",
+  "gender": "male",
+  "birthDate": "1970-01-01",
+  "deceasedBoolean": false
+}

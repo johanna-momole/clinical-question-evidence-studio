@@ -1,0 +1,17 @@
+{
+  "dataset_id": "synthetic-cohort-v1",
+  "name": "Synthetic SGLT2 / T2DM / CKD Cohort \u2014 Version 1",
+  "description": "Deterministic synthetic FHIR R4 patient data for portfolio demonstration. All patients are entirely fictional. Not real clinical data. Generated with seed=42, reference_date=2025-06-01.",
+  "patient_count": 160,
+  "reference_date": "2025-06-01",
+  "seed": 42,
+  "source": "bundled_deterministic",
+  "is_synthetic": true,
+  "resource_type_counts": {
+    "Patient": 160,
+    "Condition": 249,
+    "Encounter": 230,
+    "Observation": 105,
+    "MedicationRequest": 30
+  }
+}

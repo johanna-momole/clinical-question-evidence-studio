@@ -1,0 +1,17 @@
+{
+  "resourceType": "Observation",
+  "id": "edge-obs-missing-value",
+  "subject": {
+    "reference": "Patient/edge-pt-valid-01"
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "62238-1",
+        "display": "eGFR CKD-EPI"
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "_comment": "Demo question catalog — maps question IDs to phenotype IDs and provides display metadata. All three questions share the same base phenotype (T2DM+CKD+SGLT2) but represent different study intents.",
+  "questions": {
+    "q-sglt2-ckd-t2dm-001": {
+      "phenotype_id": "pheno-sglt2-ckd-t2dm-001",
+      "fixture_path": "data/fixtures/questions/sglt2_ckd_t2dm.json",
+      "label": "SGLT2 cohort definition",
+      "short_description": "Cohort definition and evidence search for SGLT2 inhibitors in T2DM+CKD adults",
+      "study_intent": "cohort_definition"
+    },
+    "q-sglt2-ckd-data-elem-001": {
+      "phenotype_id": "pheno-sglt2-ckd-t2dm-001",
+      "fixture_path": "data/fixtures/questions/sglt2_ckd_data_elements.json",
+      "label": "Data elements for SGLT2 initiation study",
+      "short_description": "Structured data elements required to study SGLT2 inhibitor initiation in T2DM+CKD",
+      "study_intent": "data_readiness_assessment"
+    },
+    "q-sglt2-ckd-outcome-eval-001": {
+      "phenotype_id": "pheno-sglt2-ckd-t2dm-001",
+      "fixture_path": "data/fixtures/questions/sglt2_ckd_outcome_eval.json",
+      "label": "Outcome evaluation cohort template",
+      "short_description": "Configurable outcome evaluation cohort for prevalent SGLT2 inhibitor users",
+      "study_intent": "outcome_evaluation_template"
+    }
+  },
+  "phenotypes": {
+    "pheno-sglt2-ckd-t2dm-001": {
+      "fixture_path": "data/fixtures/phenotypes/sglt2_ckd_t2dm_phenotype.json",
+      "name": "SGLT2 Inhibitor Cohort — Type 2 Diabetes + Chronic Kidney Disease",
+      "version": "0.2.0"
+    }
+  }
+}

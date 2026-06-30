@@ -1,0 +1,1542 @@
+{
+  "resourceType": "Bundle",
+  "id": "batch-07",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0121",
+        "gender": "male",
+        "birthDate": "1958-10-22",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0121-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0121"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.9",
+              "display": "Chronic kidney disease, unspecified"
+            }
+          ],
+          "text": "Chronic kidney disease, unspecified"
+        },
+        "onsetDateTime": "2021-06-25",
+        "recordedDate": "2021-06-25",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0121-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0121"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-04",
+          "end": "2024-05-05"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0121-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0121"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 52.7,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-04",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0122",
+        "gender": "female",
+        "birthDate": "1955-05-04",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0122-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0122"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.31",
+              "display": "Chronic kidney disease, stage 3a"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3a"
+        },
+        "onsetDateTime": "2022-01-17",
+        "recordedDate": "2022-01-17",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0122-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0122"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-25",
+          "end": "2024-03-26"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0122-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0122"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 24.7,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-25",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0123",
+        "gender": "female",
+        "birthDate": "1956-08-23",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0123-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0123"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.31",
+              "display": "Chronic kidney disease, stage 3a"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3a"
+        },
+        "onsetDateTime": "2023-01-20",
+        "recordedDate": "2023-01-20",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0123-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0123"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-19",
+          "end": "2024-05-20"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0123-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0123"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 45.6,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-19",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0124",
+        "gender": "male",
+        "birthDate": "1949-08-07",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0124-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0124"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.31",
+              "display": "Chronic kidney disease, stage 3a"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3a"
+        },
+        "onsetDateTime": "2021-07-28",
+        "recordedDate": "2021-07-28",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0124-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0124"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-15",
+          "end": "2024-03-16"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0124-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0124"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 28.4,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-15",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0125",
+        "gender": "female",
+        "birthDate": "1975-06-21",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0125-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0125"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.1",
+              "display": "Chronic kidney disease, stage 1"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 1"
+        },
+        "onsetDateTime": "2023-05-16",
+        "recordedDate": "2023-05-16",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0125-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0125"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-15",
+          "end": "2024-05-16"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0125-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0125"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 21.7,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-15",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0126",
+        "gender": "female",
+        "birthDate": "1977-10-04",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0126-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0126"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.4",
+              "display": "Chronic kidney disease, stage 4 (severe)"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 4 (severe)"
+        },
+        "onsetDateTime": "2023-12-27",
+        "recordedDate": "2023-12-27",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0126-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0126"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-15",
+          "end": "2024-05-16"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0126-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0126"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 34.8,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-15",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0127",
+        "gender": "female",
+        "birthDate": "1956-08-22",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0127-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0127"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.32",
+              "display": "Chronic kidney disease, stage 3b"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3b"
+        },
+        "onsetDateTime": "2022-02-21",
+        "recordedDate": "2022-02-21",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0127-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0127"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-10",
+          "end": "2024-03-11"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0127-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0127"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 23.8,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-10",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0128",
+        "gender": "female",
+        "birthDate": "1949-01-28",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0128-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0128"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.2",
+              "display": "Chronic kidney disease, stage 2 (mild)"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 2 (mild)"
+        },
+        "onsetDateTime": "2024-03-11",
+        "recordedDate": "2024-03-11",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0128-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0128"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-04-06",
+          "end": "2024-04-07"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0128-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0128"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 36.9,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-04-06",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0129",
+        "gender": "female",
+        "birthDate": "1965-04-27",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0129-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0129"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.4",
+              "display": "Chronic kidney disease, stage 4 (severe)"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 4 (severe)"
+        },
+        "onsetDateTime": "2021-05-07",
+        "recordedDate": "2021-05-07",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0129-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0129"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-11",
+          "end": "2024-03-12"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0129-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0129"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 33.6,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-11",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0130",
+        "gender": "female",
+        "birthDate": "1955-03-14",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0130-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0130"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.1",
+              "display": "Chronic kidney disease, stage 1"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 1"
+        },
+        "onsetDateTime": "2021-05-10",
+        "recordedDate": "2021-05-10",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0130-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0130"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-09",
+          "end": "2024-03-10"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0130-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0130"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 28.1,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-09",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0131",
+        "gender": "male",
+        "birthDate": "1978-12-25",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0131-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0131"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.9",
+              "display": "Chronic kidney disease, unspecified"
+            }
+          ],
+          "text": "Chronic kidney disease, unspecified"
+        },
+        "onsetDateTime": "2023-08-24",
+        "recordedDate": "2023-08-24",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0131-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0131"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-21",
+          "end": "2024-03-22"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0131-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0131"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 27.8,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-03-21",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0132",
+        "gender": "male",
+        "birthDate": "1944-08-25",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0132-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0132"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.31",
+              "display": "Chronic kidney disease, stage 3a"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3a"
+        },
+        "onsetDateTime": "2023-09-10",
+        "recordedDate": "2023-09-10",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0132-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0132"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-14",
+          "end": "2024-05-15"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0132-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0132"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 50.0,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-14",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0133",
+        "gender": "female",
+        "birthDate": "1980-03-30",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "synth-cond-0133-ckd",
+        "subject": {
+          "reference": "Patient/synth-pt-0133"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.31",
+              "display": "Chronic kidney disease, stage 3a"
+            }
+          ],
+          "text": "Chronic kidney disease, stage 3a"
+        },
+        "onsetDateTime": "2021-04-08",
+        "recordedDate": "2021-04-08",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0133-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0133"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-10",
+          "end": "2024-05-11"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "synth-obs-0133-egfr",
+        "subject": {
+          "reference": "Patient/synth-pt-0133"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+            }
+          ],
+          "text": "Glomerular filtration rate [mL/min/1.73m2] CKD-EPI 2021"
+        },
+        "valueQuantity": {
+          "value": 24.2,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org"
+        },
+        "effectiveDateTime": "2024-05-10",
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0134",
+        "gender": "male",
+        "birthDate": "1994-06-02",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0134-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0134"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-04-17",
+          "end": "2024-04-18"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0135",
+        "gender": "female",
+        "birthDate": "1980-06-04",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0135-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0135"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-10",
+          "end": "2024-05-11"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0136",
+        "gender": "male",
+        "birthDate": "1979-04-10",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0136-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0136"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-04-09",
+          "end": "2024-04-10"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0137",
+        "gender": "male",
+        "birthDate": "1962-05-16",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0137-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0137"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-04-02",
+          "end": "2024-04-03"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0138",
+        "gender": "female",
+        "birthDate": "1966-09-27",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0138-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0138"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-18",
+          "end": "2024-03-19"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0139",
+        "gender": "female",
+        "birthDate": "1988-09-26",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0139-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0139"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-05-04",
+          "end": "2024-05-05"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synth-pt-0140",
+        "gender": "male",
+        "birthDate": "1955-07-17",
+        "deceasedBoolean": false
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "synth-enc-0140-01",
+        "subject": {
+          "reference": "Patient/synth-pt-0140"
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "period": {
+          "start": "2024-03-27",
+          "end": "2024-03-28"
+        }
+      }
+    }
+  ]
+}

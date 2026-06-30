@@ -1,0 +1,68 @@
+{
+  "id": "q-sglt2-ckd-t2dm-001",
+  "raw_question": "Among adults with type 2 diabetes and chronic kidney disease, how would a computable cohort for SGLT2 inhibitor research be defined, and what external evidence is available?",
+  "pico": {
+    "population": "Adults (≥18 years) with type 2 diabetes mellitus (T2DM) and chronic kidney disease (CKD stages 1–5)",
+    "population_detail": "Patients with ≥1 ICD-10-CM code for T2DM (E11.*) AND ≥1 ICD-10-CM code for CKD (N18.1–N18.5 or N18.9) within a 12-month lookback period; age ≥18 at index date; enrolled in the source data system ≥12 months before index",
+    "intervention": "SGLT2 inhibitors: empagliflozin (RxNorm 1545653), dapagliflozin (RxNorm 1488564), canagliflozin (RxNorm 1373458), or ertugliflozin (RxNorm 2043678); identified by ≥1 qualifying prescription at or after index date",
+    "comparator": null,
+    "outcomes": [
+      "eGFR trajectory (LOINC 62238-1) — primary renal outcome",
+      "Hospitalization for heart failure",
+      "All-cause mortality",
+      "Acute kidney injury (ICD-10-CM N17.*)",
+      "UACR change from baseline (LOINC 14959-1)"
+    ],
+    "timeframe": "12-month minimum lookback period; observation window configurable (MVP default: 24 months post-index)",
+    "study_intent": "Retrospective descriptive cohort characterization using synthetic FHIR R4 patient data; not a comparative effectiveness study"
+  },
+  "ambiguity_flags": [
+    {
+      "field": "comparator",
+      "description": "No active comparator arm is specified. The question describes cohort definition only, not a comparative effectiveness analysis.",
+      "suggested_clarification": "If comparative effectiveness is desired, specify a comparator class (e.g., GLP-1 receptor agonists, DPP-4 inhibitors, sulfonylureas) and define the new-user active-comparator design.",
+      "severity": "medium"
+    },
+    {
+      "field": "outcomes",
+      "description": "Outcomes are listed as research targets but not operationalized with specific coding logic or thresholds.",
+      "suggested_clarification": "Define eGFR thresholds for CKD progression (e.g., ≥40% decline from baseline or reaching <15 mL/min/1.73m²). Specify HF hospitalization codes (ICD-10-CM I50.*) and required primary discharge position.",
+      "severity": "medium"
+    },
+    {
+      "field": "timeframe",
+      "description": "Observation window and follow-up period are not specified, making attrition and event rates uninterpretable.",
+      "suggested_clarification": "Define: (1) index date (first qualifying SGLT2 Rx), (2) required continuous enrollment before index, (3) follow-up end date or censoring rules.",
+      "severity": "low"
+    },
+    {
+      "field": "population",
+      "description": "CKD staging criterion is ambiguous — it is unclear whether eGFR-based staging or diagnosis-code-based staging should be used, or both.",
+      "suggested_clarification": "Specify whether CKD stage should be confirmed by eGFR lab values (preferred) or ICD-10 codes alone. Define the required number of diagnoses and temporal spacing.",
+      "severity": "high"
+    }
+  ],
+  "clarifying_questions": [
+    "Should patients be required to have both T2DM and CKD diagnoses within the same encounter, or within a defined lookback period with no proximity requirement?",
+    "Should SGLT2 inhibitor exposure be defined by first-ever prescription (incident use) or any prescription (prevalent use)?",
+    "Should patients with end-stage renal disease (N18.6) or on dialysis (CPT 90935, 90937) be excluded from the cohort?",
+    "Is a washout period required before the index date to ensure new-user design?",
+    "Should baseline eGFR laboratory values be required (potentially excluding patients with missing labs)?",
+    "Should patients with type 1 diabetes (E10.*) be explicitly excluded, or rely on T2DM codes only?"
+  ],
+  "structured_json": {
+    "domain": "endocrinology_nephrology",
+    "disease_area": ["type_2_diabetes", "chronic_kidney_disease"],
+    "intervention_class": "SGLT2_inhibitor",
+    "icd10_anchors": ["E11", "N18"],
+    "rxnorm_ingredient_anchors": ["1545653", "1488564", "1373458", "2043678"],
+    "loinc_anchors": ["62238-1", "33914-3", "14959-1"],
+    "study_design": "retrospective_descriptive_cohort",
+    "data_type": "synthetic_fhir_r4",
+    "evidence_scope": ["pubmed", "clinicaltrials_gov"],
+    "phase": 1
+  },
+  "created_at": "2025-01-15T10:00:00+00:00",
+  "status": "approved",
+  "source": "predefined"
+}
