@@ -28,7 +28,6 @@ from app.components.ui_helpers import (
     SESSION_KEY_RETRIEVAL_RUN,
     evidence_qa_rows,
     evidence_record_to_display_row,
-    qa_status_color,
     source_status_to_display_rows,
 )
 
@@ -205,9 +204,7 @@ else:
                 key="ev_min_score",
             )
         with filt_col3:
-            tag_options = sorted(
-                {t for r in records_list for t in r.get("tags", [])}
-            )
+            tag_options = sorted({t for r in records_list for t in r.get("tags", [])})
             tag_filter = st.multiselect(
                 "Filter by tags",
                 tag_options,
@@ -232,9 +229,15 @@ else:
 
     # Detail expander for each record
     st.subheader("Record Detail")
-    record_titles = [f"{i+1}. {r.get('title', r.get('identifier', ''))[:80]}" for i, r in enumerate(filtered)]
+    record_titles = [
+        f"{i + 1}. {r.get('title', r.get('identifier', ''))[:80]}" for i, r in enumerate(filtered)
+    ]
     if record_titles:
-        selected_idx = st.selectbox("Select record to view detail", range(len(record_titles)), format_func=lambda i: record_titles[i])
+        selected_idx = st.selectbox(
+            "Select record to view detail",
+            range(len(record_titles)),
+            format_func=lambda i: record_titles[i],
+        )
         selected = filtered[selected_idx]
         with st.container(border=True):
             detail_c1, detail_c2 = st.columns([3, 1])
@@ -261,9 +264,15 @@ else:
             with detail_c2:
                 st.metric("Relevance", f"{selected.get('relevance_score') or 0.0:.2f}")
                 st.markdown(f"**Identifier:** `{selected.get('identifier', '')}`")
-                st.markdown(f"**Design:** {selected.get('study_design', 'Not reported') or 'Not reported'}")
-                st.markdown(f"**Date:** {selected.get('publication_or_update_date', 'Not reported') or 'Not reported'}")
-                st.markdown(f"**Fixture data:** {'Yes' if selected.get('is_fixture_data') else 'No'}")
+                st.markdown(
+                    f"**Design:** {selected.get('study_design', 'Not reported') or 'Not reported'}"
+                )
+                st.markdown(
+                    f"**Date:** {selected.get('publication_or_update_date', 'Not reported') or 'Not reported'}"
+                )
+                st.markdown(
+                    f"**Fixture data:** {'Yes' if selected.get('is_fixture_data') else 'No'}"
+                )
 
             if selected.get("structured_tags"):
                 st.markdown("**Tags:**")

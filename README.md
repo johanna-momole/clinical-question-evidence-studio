@@ -138,7 +138,7 @@ curl http://localhost:8000/info
 open http://localhost:8000/docs
 ```
 
-Phases 1–4 implement:
+Phases 1–5 implement:
 - `GET /health` — service health
 - `GET /info` — API metadata and phase status
 - `POST /questions/parse` — PICO extraction
@@ -149,6 +149,11 @@ Phases 1–4 implement:
 - `GET /evidence/runs/{run_id}` — retrieval run detail
 - `GET /evidence/{evidence_id}` — single evidence record
 - `POST /terminology/rxnorm/verify` — RxNorm terminology verification
+- `POST /briefs/generate` — evidence brief generation with 8-step QA pipeline
+- `GET /briefs/{brief_id}` — retrieve a generated brief
+- `POST /briefs/{brief_id}/review` — submit human review action
+- `GET /briefs/{brief_id}/review-history` — retrieve review audit trail
+- `GET /briefs/{brief_id}/sources` — retrieve evidence snapshot for a brief
 
 ## Testing
 
@@ -195,7 +200,7 @@ All external APIs have local fixture fallbacks for offline operation.
 - Supports three curated questions; does not generalize to all medical conditions
 - Terminology mappings are candidate suggestions requiring clinical expert review
 - Synthetic cohort results reflect Synthea data patterns, not real-world epidemiology
-- PDF and PowerPoint styling is functional but not fully designed in Phase 1
+- Phase 5 supports JSON and Markdown export only; PDF and PPTX are not implemented
 - LLM text is labeled and separated from retrieved facts, but accuracy depends on source quality
 - No real patient data is used or displayed anywhere in this application
 
@@ -217,8 +222,8 @@ This is an educational portfolio project built by Johanna Momole to demonstrate 
 | 2 | PICO extraction, phenotype builder, terminology mapping UI | ✅ Complete |
 | 3 | Synthetic FHIR parsing, cohort engine, attrition waterfall | ✅ Complete |
 | 4 | External evidence retrieval (PubMed, CT.gov, CMS), normalization, metatagging, ranking, QA | ✅ Complete |
-| 5 | Evidence brief generation, citation validation, QA runner | Planned |
-| 6 | Full Streamlit pages, export center (JSON/MD/PDF/PPTX) | Planned |
+| 5 | Evidence brief generation, citation validation, 16-check QA, human review, Streamlit page, Markdown export | ✅ Complete |
+| 6 | Full export center, portfolio polish, deployment docs | Planned |
 | 7 | UI polish, documentation, architecture diagrams, portfolio case study | Planned |
 
 ## Portfolio Impact Statement

@@ -74,3 +74,30 @@ class FixtureManifestError(RuntimeError):
 
 class UnsupportedSourceError(ValueError):
     """Raised when a requested evidence source name is not registered."""
+
+
+# ── Brief generation exceptions ────────────────────────────────────────────────
+
+
+class BriefGenerationError(RuntimeError):
+    """Raised when brief generation fails for a non-gate reason."""
+
+
+class BriefNotFoundError(ValueError):
+    """Raised when a requested brief_id has no saved record."""
+
+
+class InvalidReviewTransitionError(ValueError):
+    """Raised when a review status transition is not permitted."""
+
+
+class SnapshotMismatchError(ValueError):
+    """Raised when the evidence snapshot does not match the current retrieval run."""
+
+
+class CriticalQABlockError(RuntimeError):
+    """Raised when unresolved critical QA failures block generation or approval."""
+
+
+class MissingExpectedSourceError(ValueError):
+    """Raised when deterministic generation cannot find an expected fixture source."""

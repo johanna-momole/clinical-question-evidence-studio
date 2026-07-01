@@ -61,6 +61,20 @@ from src.schemas.retrieval import (
     RetrievalRun,
     SourceSpecificQuery,
 )
+from src.schemas.brief import (
+    BriefAuditRecord,
+    BriefGenerationRequest,
+    BriefGenerationResult,
+    BriefProvenance,
+    BriefReviewRecord,
+    ClaimCitation,
+    DataOriginClass,
+    EvidenceBrief as EvidenceBriefV2,
+    EvidenceGap,
+    EvidenceSnapshot,
+    EvidenceSnapshotRecord,
+    GeneratedClaim as GeneratedClaimV2,
+)
 from src.schemas.synthesis import Citation, EvidenceBrief, GeneratedClaim
 from src.schemas.terminology_verification import (
     TerminologyVerificationAuditRecord,
@@ -128,10 +142,23 @@ __all__ = [
     "ProvenanceRecord",
     "QAResult",
     "QASummary",
-    # Synthesis
+    # Synthesis — legacy (Phase 1)
     "Citation",
     "EvidenceBrief",
     "GeneratedClaim",
+    # Brief — Phase 5
+    "BriefAuditRecord",
+    "BriefGenerationRequest",
+    "BriefGenerationResult",
+    "BriefProvenance",
+    "BriefReviewRecord",
+    "ClaimCitation",
+    "DataOriginClass",
+    "EvidenceBriefV2",
+    "EvidenceGap",
+    "EvidenceSnapshot",
+    "EvidenceSnapshotRecord",
+    "GeneratedClaimV2",
     # Parsing / provenance
     "ParseProvenance",
     "ParseResult",

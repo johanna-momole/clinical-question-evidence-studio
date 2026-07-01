@@ -1,8 +1,13 @@
-"""Pydantic schemas for evidence brief generation and citation management.
+"""Phase 1 synthesis schemas — preserved for backward compatibility with existing tests.
 
-Every factual claim in the evidence brief must trace back to a Citation.
-LLM-generated summaries are explicitly labeled and tracked separately from
-retrieved facts and calculated cohort results.
+Phase 5 replaces these with richer types in src/schemas/brief.py.
+New code should import EvidenceBrief, GeneratedClaim, ClaimCitation from brief.py.
+
+Migration summary:
+  - GeneratedClaim.claim_type values changed to "supported"|"exploratory"|"insufficient_evidence"
+  - Old Citation renamed ClaimCitation with new fields (support_type, locator, citation_number)
+  - EvidenceBrief rebuilt with snapshot, versioning, BQ QA, and review workflow
+  - Old schemas kept here so existing Phase 1/2/3 tests continue to import without change
 """
 
 from datetime import UTC, datetime
@@ -23,7 +28,7 @@ _DISCLAIMER = (
 
 
 class Citation(BaseModel):
-    """A citable reference linked to a specific EvidenceRecord."""
+    """Legacy citation schema (Phase 1). New code: use ClaimCitation from brief.py."""
 
     citation_id: str = Field(..., description="Internal citation identifier (e.g., 'cite-001')")
     evidence_id: str = Field(..., description="Linked EvidenceRecord.id")
@@ -43,11 +48,10 @@ class Citation(BaseModel):
 
 
 class GeneratedClaim(BaseModel):
-    """A single factual or interpretive claim in the evidence brief, with full provenance.
+    """Legacy claim schema (Phase 1). New code: use GeneratedClaim from brief.py.
 
-    Distinguishes retrieved facts (from external sources), cohort results (from
-    synthetic data), LLM summaries (model-generated), and human-reviewed content.
-    No claim should be marked is_causal=True for observational or synthetic outputs.
+    Phase 5 GeneratedClaim uses claim_type values 'supported'|'exploratory'|'insufficient_evidence'
+    and adds dimension, evidence_basis, design_limitations, and uncertainty_note.
     """
 
     claim_id: str = Field(..., description="Unique claim identifier within this brief")
@@ -74,12 +78,7 @@ class GeneratedClaim(BaseModel):
 
 
 class EvidenceBrief(BaseModel):
-    """Synthesized evidence brief for a clinical research question.
-
-    The brief distinguishes retrieved facts, cohort results, and LLM-generated
-    summaries. Every section citing external evidence must have citation IDs.
-    The disclaimer field must always be displayed to users.
-    """
+    """Legacy brief schema (Phase 1). New code: use EvidenceBrief from brief.py."""
 
     id: str = Field(..., description="Unique brief identifier")
     question_id: str = Field(..., description="Linked ClinicalQuestion.id")

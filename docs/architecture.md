@@ -36,8 +36,9 @@ src/
 ├── cache/           # DuckDB-backed evidence cache with injectable clock (Phase 4)
 ├── evidence_sources/# PubMed, CT.gov, CMS, RxNorm adapters (Phase 4)
 ├── evidence/        # Query builder, normalizer, dedup, metatagging, ranking, service (Phase 4)
-├── synthesis/       # Evidence brief generation (Phase 5)
-├── qa/              # QA check runners (Phases 3–4)
+├── synthesis/       # Brief generation, snapshot, citation resolver, export (Phase 5)
+├── review/          # Human review service and audit trail (Phase 5)
+├── qa/              # QA check runners (Phases 3–5)
 ├── exports/         # JSON, Markdown, PDF, PPTX (Phase 6)
 ├── llm/             # Provider-agnostic LLM interface
 └── api/             # FastAPI routes
@@ -60,6 +61,27 @@ EvidenceService.run()
 ```
 
 All retrieval is offline-first. The default mode (`offline_only=True`) reads from versioned fixtures under `data/fixtures/evidence/` and produces deterministic output. Live mode (`offline_only=False`) is available but excluded from the default test suite via `@pytest.mark.live`.
+
+## Phase 5 Brief Generation Subsystem
+
+```
+EvidenceBriefService.generate()
+  ├─ _validate_evidence_run()          → Gate: run_id, records, query_hash required
+  ├─ build_snapshot()                  → EvidenceSnapshot (content-addressed SHA-256)
+  ├─ _gate_snapshot()                  → warn on failed sources
+  ├─ generate_deterministic() OR       → list[GeneratedClaim], list[EvidenceGap]
+  │   generate_live_llm()              → (strict JSON validation, 1 retry max)
+  ├─ resolve_citations()               → stable [N] numbers by claim_id alpha sort
+  ├─ generate_limitations()            → deterministic from structured metadata
+  ├─ run_brief_checks()                → BQ-001 through BQ-016
+  │    └─ has_critical_failures()      → block on critical failures
+  └─ SynthesisRepository.save_*()     → DuckDB (9 tables)
+
+BriefReviewService.submit_review()
+  ├─ _check_transition()               → guard rail on valid status changes
+  ├─ BriefReviewRecord validation      → blocks "clinically approved" label
+  └─ SynthesisRepository.log_audit()  → append-only audit trail
+```
 
 ## Key Design Decisions
 

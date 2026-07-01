@@ -233,7 +233,9 @@ def evidence_record_to_display_row(rec: dict) -> dict:
         "Title": rec.get("title", ""),
         "Source": _SOURCE_DISPLAY.get(rec.get("source_name", ""), rec.get("source_type", "")),
         "Identifier": rec.get("identifier", ""),
-        "Design": _DESIGN_DISPLAY.get(rec.get("study_design", ""), rec.get("study_design", "") or ""),
+        "Design": _DESIGN_DISPLAY.get(
+            rec.get("study_design", ""), rec.get("study_design", "") or ""
+        ),
         "Date": str(rec.get("publication_or_update_date", "") or ""),
         "Relevance": f"{rec.get('relevance_score', 0.0) or 0.0:.2f}",
         "Tags": ", ".join(rec.get("tags", [])),

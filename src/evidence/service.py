@@ -172,6 +172,27 @@ class EvidenceService:
     def get_run(self, run_id: str) -> dict:
         return self._repo.get_run(run_id)
 
+    def get_run_as_dict(self, run_id: str) -> dict:
+        """Return run data shaped for EvidenceBriefService.generate().
+
+        Keys: run_id, query_hash, records (list[dict]), source_statuses (dict[str,str]).
+        """
+        run_row = self._repo.get_run(run_id)
+        records = self._repo.list_evidence_for_run(run_id)
+        raw_source_statuses = self._repo.source_coverage(run_id)
+        # Derive ok/failed per source: if retrieved > 0 → ok, else → empty
+        source_statuses = {
+            src: ("ok" if count > 0 else "empty")
+            for src, count in raw_source_statuses.items()
+        }
+        return {
+            "run_id": run_id,
+            "query_hash": run_row.get("query_hash", ""),
+            "records": records,
+            "source_statuses": source_statuses,
+            "qa_summary": {},
+        }
+
     def list_run_ids(self) -> list[str]:
         return self._repo.list_run_ids()
 
