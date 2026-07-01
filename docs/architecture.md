@@ -33,14 +33,33 @@ src/
 ├── terminology/     # ICD-10-CM, RxNorm, LOINC mapping (Phase 2)
 ├── fhir/            # Synthea FHIR R4 parsing (Phase 3)
 ├── cohorts/         # Cohort engine and attrition (Phase 3)
-├── evidence_sources/# PubMed, CT.gov, CMS adapters (Phase 4)
-├── metatagging/     # Tag indexing and search (Phase 4)
+├── cache/           # DuckDB-backed evidence cache with injectable clock (Phase 4)
+├── evidence_sources/# PubMed, CT.gov, CMS, RxNorm adapters (Phase 4)
+├── evidence/        # Query builder, normalizer, dedup, metatagging, ranking, service (Phase 4)
 ├── synthesis/       # Evidence brief generation (Phase 5)
-├── qa/              # QA check runners (Phase 5)
+├── qa/              # QA check runners (Phases 3–4)
 ├── exports/         # JSON, Markdown, PDF, PPTX (Phase 6)
 ├── llm/             # Provider-agnostic LLM interface
 └── api/             # FastAPI routes
 ```
+
+## Phase 4 Evidence Subsystem
+
+```
+EvidenceService.run()
+  ├─ QueryBuilder.build()          → EvidenceQuery (deterministic, gated)
+  ├─ Adapter.fetch() × 3           → RawEvidenceRecord[]
+  │    └─ EvidenceCache (DuckDB)   → TTL-aware per-source cache
+  ├─ normalize_records()           → EvidenceRecord[] (typed subclasses)
+  ├─ dedup_records()               → EvidenceDeduplicationResult
+  ├─ tag_records()                 → EvidenceRecord[] (with tags)
+  ├─ rank_records()                → EvidenceRecord[] (with relevance_score)
+  ├─ run_evidence_checks()         → QASummary (EQ-001 – EQ-010)
+  ├─ run_retrieval_checks()        → QASummary (RQ-001 – RQ-006)
+  └─ EvidenceRepository.save_run() → DuckDB persistence (10 tables)
+```
+
+All retrieval is offline-first. The default mode (`offline_only=True`) reads from versioned fixtures under `data/fixtures/evidence/` and produces deterministic output. Live mode (`offline_only=False`) is available but excluded from the default test suite via `@pytest.mark.live`.
 
 ## Key Design Decisions
 

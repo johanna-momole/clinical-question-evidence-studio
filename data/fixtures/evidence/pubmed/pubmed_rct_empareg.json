@@ -1,0 +1,21 @@
+[
+  {
+    "pmid": "26378978",
+    "title": "Empagliflozin, Cardiovascular Outcomes, and Mortality in Type 2 Diabetes",
+    "abstract": "BACKGROUND: The cardiovascular effects of empagliflozin, an inhibitor of sodium-glucose cotransporter 2 (SGLT2), in addition to standard care, in patients with type 2 diabetes at high cardiovascular risk are not known. METHODS: We randomly assigned patients to receive 10 mg or 25 mg of empagliflozin or placebo once daily. The primary composite outcome was death from cardiovascular causes, nonfatal myocardial infarction, or nonfatal stroke. RESULTS: A total of 7020 patients were treated (median observation time, 3.1 years). The primary outcome occurred in 490 of 4687 patients (10.5%) in the empagliflozin group and in 282 of 2333 patients (12.1%) in the placebo group (hazard ratio in the empagliflozin group, 0.86; 95.02% CI, 0.74 to 0.99; P=0.04 for superiority).",
+    "authors": ["Zinman B", "Wanner C", "Lachin JM", "Fitchett D", "Bluhmki E", "Hantel S", "Mattheus M", "Devins T", "Johansen OE", "Woerle HJ", "Broedl UC", "Inzucchi SE"],
+    "journal": "New England Journal of Medicine",
+    "pub_date": {"year": 2015, "month": 11, "day": 26},
+    "doi": "10.1056/NEJMoa1504720",
+    "mesh_terms": [
+      "Cardiovascular Diseases",
+      "Diabetes Mellitus, Type 2",
+      "Glucosides",
+      "Benzhydryl Compounds",
+      "Sodium-Glucose Transporter 2 Inhibitors"
+    ],
+    "publication_types": ["Randomized Controlled Trial", "Multicenter Study", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/26378978/"
+  }
+]

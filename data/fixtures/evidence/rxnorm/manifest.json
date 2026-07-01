@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "source": "rxnorm",
+  "description": "Offline versioned RxNorm verification fixture for the four SGLT2 inhibitor RxCUIs present in the demo phenotype. These records represent expected RxNorm API responses as of the curated_at date.",
+  "curated_at": "2025-06-01",
+  "index_file": "rxnorm_index.json",
+  "notes": [
+    "These fixture responses are manually curated from the RxNorm REST API documentation and publicly known RxCUI values.",
+    "They are NOT guaranteed to match the current live RxNorm database. Always verify against the live API before clinical use.",
+    "The four RxCUIs covered (empagliflozin 2200644, dapagliflozin 1488564, canagliflozin 1373458, ertugliflozin 1992819) are ingredient-level concepts.",
+    "A fifth entry (RXCUI_NOT_FOUND: 9999999) is included to test the not-found path."
+  ]
+}

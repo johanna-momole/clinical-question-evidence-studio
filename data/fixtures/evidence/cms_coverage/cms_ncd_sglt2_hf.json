@@ -1,0 +1,27 @@
+[
+  {
+    "id": "NCD240.2",
+    "ncd_id": "NCD240.2",
+    "document_type": "NCD",
+    "title": "SGLT2 Inhibitors for Heart Failure with Reduced Ejection Fraction — National Coverage Analysis",
+    "contractor": "National",
+    "jurisdiction": "National",
+    "status": "Active",
+    "effective_date": "2023-06-01",
+    "retirement_date": null,
+    "coverage_determination": "Covered with Evidence Development",
+    "summary": "Medicare will cover SGLT2 inhibitors for beneficiaries with heart failure with reduced ejection fraction (HFrEF, defined as LVEF ≤40%) when used according to FDA-approved labeling. Coverage is conditional on patient enrollment in a CED registry or clinical trial where available. This NCD reflects evidence from EMPEROR-Reduced and DAPA-HF trials. Coverage for patients with T2DM and CKD follows existing LCD criteria.",
+    "applicable_codes": [
+      "I50.20",
+      "I50.21",
+      "I50.22",
+      "I50.23",
+      "I50.30",
+      "I50.31",
+      "I50.32",
+      "I50.33"
+    ],
+    "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx",
+    "_fixture_note": "Illustrative NCD based on CMS database structure. Verify against live CMS API."
+  }
+]

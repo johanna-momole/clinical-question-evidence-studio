@@ -1,0 +1,21 @@
+[
+  {
+    "pmid": "30990260",
+    "title": "Canagliflozin and Renal Outcomes in Type 2 Diabetes and Nephropathy",
+    "abstract": "BACKGROUND: Canagliflozin is a sodium-glucose cotransporter 2 (SGLT2) inhibitor that reduces glycemia and may also reduce the risk of chronic kidney disease progression and cardiovascular events. METHODS: In this double-blind, randomized trial, we assigned patients with type 2 diabetes and albuminuric chronic kidney disease to receive canagliflozin (100 mg daily) or placebo. The primary outcome was a composite of end-stage kidney disease (dialysis, transplantation, or a sustained estimated GFR of less than 15 ml/min/1.73 m2), a doubling of the serum creatinine level, or death from renal or cardiovascular causes. RESULTS: The trial was stopped early after a planned interim analysis. The primary outcome occurred in 245 of 2202 patients in the canagliflozin group (11.1%) and in 340 of 2199 patients in the placebo group (15.5%) (hazard ratio, 0.70; 95% CI, 0.59 to 0.82; P<0.001).",
+    "authors": ["Perkovic V", "Jardine MJ", "Neal B", "Bompoint S", "Heerspink HJL", "Charytan DM", "Edwards R", "Agarwal R", "Bakris G", "Bull S", "Cannon CP", "Capuano G", "Chu PL", "de Zeeuw D", "Greene T", "Heerspink HJL"],
+    "journal": "New England Journal of Medicine",
+    "pub_date": {"year": 2019, "month": 4, "day": 14},
+    "doi": "10.1056/NEJMoa1811744",
+    "mesh_terms": [
+      "Canagliflozin",
+      "Diabetic Nephropathies",
+      "Diabetes Mellitus, Type 2",
+      "Kidney Failure, Chronic",
+      "Sodium-Glucose Transporter 2 Inhibitors"
+    ],
+    "publication_types": ["Randomized Controlled Trial", "Multicenter Study", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/30990260/"
+  }
+]

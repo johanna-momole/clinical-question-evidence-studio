@@ -1,0 +1,19 @@
+[
+  {
+    "pmid": "34469193",
+    "title": "SGLT2 inhibitors for diabetic nephropathy: a clinical perspective",
+    "abstract": null,
+    "authors": ["Wanner C", "Inzucchi SE"],
+    "journal": "Kidney International",
+    "pub_date": {"year": 2021, "month": 9},
+    "doi": "10.1016/j.kint.2021.07.027",
+    "mesh_terms": [
+      "Sodium-Glucose Transporter 2 Inhibitors",
+      "Diabetic Nephropathies"
+    ],
+    "publication_types": ["Review", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/34469193/",
+    "_fixture_note": "abstract is null to test partial-data normalization handling"
+  }
+]

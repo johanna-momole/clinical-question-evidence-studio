@@ -37,7 +37,17 @@ class Settings(BaseSettings):
     pubmed_api_key: str | None = None
     ncbi_base_url: str = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
     clinicaltrials_base_url: str = "https://clinicaltrials.gov/api/v2"
+    cms_coverage_base_url: str = "https://coverage.cms.gov/api/coverage"
     rxnorm_base_url: str = "https://rxnav.nlm.nih.gov/REST"
+
+    # Evidence retrieval
+    evidence_offline_only: bool = Field(
+        default=True, description="Force offline fixture mode for all evidence adapters"
+    )
+    evidence_max_results_per_source: int = Field(
+        default=50, ge=1, le=500, description="Default max records per source adapter"
+    )
+    evidence_cache_ttl_hours: int = Field(default=24, description="Evidence cache TTL in hours")
 
     # Storage
     data_dir: str = "data"

@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "source": "clinical_trials_gov",
+  "description": "Offline versioned ClinicalTrials.gov fixture set for SGLT2 inhibitors in T2DM + CKD. Records use the ClinicalTrials.gov v2 API response structure. These are manually curated fixtures, NOT live API responses.",
+  "query_context": "SGLT2 inhibitors (empagliflozin, dapagliflozin, canagliflozin) AND chronic kidney disease AND type 2 diabetes",
+  "curated_at": "2025-06-01",
+  "fixture_files": [
+    "ct_empa_kidney.json",
+    "ct_dapa_ckd.json",
+    "ct_credence.json",
+    "ct_recruiting.json",
+    "ct_observational.json"
+  ],
+  "notes": [
+    "NCT IDs correspond to real registered trials as of the curated_at date.",
+    "These fixtures do not include full protocol or results data — only study-level metadata."
+  ]
+}

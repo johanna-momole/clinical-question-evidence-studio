@@ -106,16 +106,75 @@ All six normalized types are produced by `src/fhir/normalizer.py` from raw bundl
 | provenance | CohortProvenance | Reproducibility metadata |
 | warnings | list[str] | e.g., LLM-suggested-mapping warnings, optional-filter provisional-result warnings |
 
-### EvidenceRecord
+### EvidenceRecord (Phase 4)
 | Field | Type | Description |
 |-------|------|-------------|
-| source_type | Literal | publication / clinical_trial / cms_coverage / guideline |
-| identifier | str | PMID, NCT ID, LCD number, etc. |
-| retrieval_timestamp | datetime | UTC retrieval time (required for provenance) |
-| review_status | Literal | pending / included / excluded |
-| raw_response | dict | Preserved raw API response |
+| id | str | `ev-{source}-{identifier}-{content_hash}` — stable, idempotent |
+| source_type | Literal | `publication` / `clinical_trial` / `cms_coverage` |
+| source_name | EvidenceSourceName | `pubmed` / `clinical_trials_gov` / `cms_coverage` |
+| title | str | Record title (required) |
+| identifier | str | Source-native ID (PMID, NCT ID, LCD doc ID) |
+| url | str \| None | Link to source record |
+| publication_or_update_date | date \| None | Best available date |
+| date_precision | DatePrecision | `day` / `month` / `year` / `unknown` |
+| study_design | str \| None | Rule-based design label (e.g., `Meta-analysis`, `RCT`) |
+| status | str \| None | Trial overall status or CMS document status |
+| relevance_score | float \| None | Weighted tag overlap score ∈ [0.0, 1.0] |
+| review_status | Literal | `pending` / `included` / `excluded` |
+| content_hash | str \| None | SHA-256 of raw payload JSON (16 hex chars) |
+| is_fixture_data | bool | True if from offline fixture |
+| duplicate_of | str \| None | ID of the canonical record if this is a within-source duplicate |
+| tags | list[str] | Flat tag list, e.g. `["population:t2dm", "intervention:sglt2_class"]` |
+| structured_tags | list[EvidenceTag] | Typed tags with `dimension` and `rule_id` |
+| retrieval_run_id | str | Links to `RetrievalRun.run_id` |
+| raw_record_id | str | Links to `RawEvidenceRecord.id` |
 
-### EvidenceBrief
+Subclasses add source-specific fields:
+- `PublicationRecord`: `pmid`, `abstract`, `authors_or_sponsor`, `mesh_terms`, `journal`, `doi`, `publication_types`
+- `ClinicalTrialRecord`: `nct_id`, `phase`, `enrollment`, `trial_status`, `primary_completion_date`, `sponsor`, `conditions`, `interventions`, `has_results_posted`
+- `CoverageRecord`: `lcd_or_ncd_id`, `document_type`, `jurisdiction`, `effective_date`, `retirement_date`, `contractor`, `coverage_determination`, `applicable_codes`
+
+### RawEvidenceRecord (Phase 4)
+| Field | Type | Description |
+|-------|------|-------------|
+| id | str | `raw-{source}-{identifier}-{content_hash}` |
+| source_name | EvidenceSourceName | Source adapter that produced this record |
+| source_identifier | str | PMID, NCT ID, etc. |
+| content_hash | str | SHA-256 of `raw_payload` JSON with `sort_keys=True`, 16 hex chars |
+| fetched_at | datetime | UTC timestamp of retrieval |
+| is_fixture_data | bool | True if from offline fixture |
+| fixture_manifest_version | str \| None | Fixture version string when `is_fixture_data=True` |
+| raw_payload | dict[str, Any] | Verbatim source payload, never modified |
+
+### RetrievalRun (Phase 4)
+| Field | Type | Description |
+|-------|------|-------------|
+| run_id | str | UUID |
+| query | EvidenceQuery | Deterministic query with `query_hash` |
+| request | EvidenceRetrievalRequest | Original request parameters |
+| source_statuses | list[EvidenceSourceStatus] | Per-source record counts, cache hit, errors |
+| provenance | RetrievalProvenance | Fixture versions, retrieval mode, authenticity note |
+| started_at / completed_at | datetime | Run timing |
+| total_records_retrieved | int | Sum across all sources |
+| total_records_after_dedup | int | After within-source deduplication |
+
+### TerminologyVerificationResult (Phase 4)
+| Field | Type | Description |
+|-------|------|-------------|
+| rxcui | str | RxCUI being verified |
+| found | bool | Whether the RxCUI exists in the source |
+| verified_name | str \| None | Official concept name from RxNorm |
+| term_type | str \| None | RxNorm term type (IN, BN, SCD, etc.) |
+| is_active | bool \| None | Whether the concept is active |
+| matches_expected_name | bool \| None | Name comparison result (None if no expected name given) |
+| source | Literal | `rxnorm_fixture` / `rxnorm_api` |
+| verified_at | datetime | UTC timestamp |
+| is_fixture_data | bool | True if from offline fixture |
+| notes | list[str] | Human-readable notes (name mismatches, inactive status warnings) |
+
+**Important:** Verification results NEVER auto-update a `TerminologyMapping.review_status`. Human reviewer action is always required.
+
+### EvidenceBrief (Phase 5 — planned)
 | Field | Type | Description |
 |-------|------|-------------|
 | key_findings | list[GeneratedClaim] | Claims with provenance type |

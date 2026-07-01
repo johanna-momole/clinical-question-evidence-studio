@@ -1,0 +1,38 @@
+[
+  {
+    "nct_id": "NCT04078620",
+    "protocolSection": {
+      "identificationModule": {
+        "nctId": "NCT04078620",
+        "briefTitle": "Real-World Observational Study of SGLT2 Inhibitors in Patients with T2DM and CKD",
+        "officialTitle": "Retrospective Cohort Analysis of Sodium-Glucose Cotransporter 2 Inhibitor Use and Kidney Outcomes in Medicare Fee-for-Service Beneficiaries"
+      },
+      "statusModule": {
+        "overallStatus": "Completed",
+        "hasResultsSection": false,
+        "primaryCompletionDate": {"date": "2023-12-01", "type": "actual"},
+        "studyFirstSubmitDate": "2019-09-05"
+      },
+      "sponsorCollaboratorsModule": {
+        "leadSponsor": {"name": "Brigham and Women's Hospital", "class": "OTHER"}
+      },
+      "descriptionModule": {
+        "briefSummary": "Observational retrospective study examining real-world kidney outcomes in Medicare beneficiaries with T2DM and CKD who were new users of SGLT2 inhibitors."
+      },
+      "designModule": {
+        "studyType": "Observational",
+        "phases": [],
+        "designInfo": {"observationalModel": "Cohort", "timePerspective": "Retrospective"},
+        "enrollmentInfo": {"count": 28450, "type": "estimated"}
+      },
+      "conditionsModule": {
+        "conditions": ["Type 2 Diabetes Mellitus", "Chronic Kidney Disease"]
+      },
+      "interventionsModule": {
+        "interventions": [
+          {"type": "Drug", "name": "SGLT2 Inhibitors (class)", "description": "Observational — no experimental intervention"}
+        ]
+      }
+    }
+  }
+]

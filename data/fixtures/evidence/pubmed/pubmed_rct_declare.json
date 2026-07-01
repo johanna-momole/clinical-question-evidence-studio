@@ -1,0 +1,21 @@
+[
+  {
+    "pmid": "30415602",
+    "title": "Dapagliflozin and Cardiovascular Outcomes in Type 2 Diabetes",
+    "abstract": "BACKGROUND: Dapagliflozin, a sodium-glucose cotransporter 2 (SGLT2) inhibitor, reduces cardiovascular risk factors, but its effects on cardiovascular outcomes have not been established. METHODS: We randomly assigned patients with type 2 diabetes who had or were at risk for atherosclerotic cardiovascular disease to receive dapagliflozin or placebo. The primary safety outcome was major adverse cardiovascular events (MACE), and the primary efficacy outcomes were MACE and a composite of cardiovascular death or hospitalization for heart failure. RESULTS: A total of 17,160 patients were enrolled, with a median follow-up of 4.2 years. Dapagliflozin did not increase the rate of MACE (8.8% vs. 9.4%; hazard ratio, 0.93; 95% CI, 0.84 to 1.03; P<0.001 for noninferiority) and did reduce the rate of the composite of cardiovascular death or hospitalization for heart failure (4.9% vs. 5.8%; hazard ratio, 0.83; 95% CI, 0.73 to 0.95; P=0.005 for superiority).",
+    "authors": ["Wiviott SD", "Raz I", "Bonaca MP", "Mosenzon O", "Kato ET", "Cahn A", "Bhatt DL", "Leiter LA", "McGuire DK", "Wilding JPH"],
+    "journal": "New England Journal of Medicine",
+    "pub_date": {"year": 2019, "month": 1, "day": 24},
+    "doi": "10.1056/NEJMoa1812389",
+    "mesh_terms": [
+      "Benzhydryl Compounds",
+      "Glucosides",
+      "Diabetes Mellitus, Type 2",
+      "Cardiovascular Diseases",
+      "Sodium-Glucose Transporter 2 Inhibitors"
+    ],
+    "publication_types": ["Randomized Controlled Trial", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/30415602/"
+  }
+]

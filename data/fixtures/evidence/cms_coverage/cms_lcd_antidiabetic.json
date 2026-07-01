@@ -1,0 +1,25 @@
+[
+  {
+    "id": "L35236",
+    "lcd_id": "L35236",
+    "document_type": "LCD",
+    "title": "Glucose Monitors and Antidiabetic Agents for Type 2 Diabetes Mellitus",
+    "contractor": "Noridian Healthcare Solutions",
+    "jurisdiction": "J-F",
+    "status": "Active",
+    "effective_date": "2021-01-01",
+    "retirement_date": null,
+    "coverage_determination": "Covered",
+    "summary": "This LCD covers glucose monitoring and certain antidiabetic medications including SGLT2 inhibitors for beneficiaries with Type 2 Diabetes Mellitus meeting specified clinical criteria. Coverage requires documented diagnosis of T2DM and failure or contraindication to first-line metformin therapy, or specific cardiovascular/renal risk factors.",
+    "applicable_codes": [
+      "E11.65",
+      "E11.649",
+      "E11.40",
+      "E11.51",
+      "E11.52",
+      "Z79.84"
+    ],
+    "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdId=L35236",
+    "_fixture_note": "Illustrative LCD based on CMS database structure. Verify against live CMS API."
+  }
+]

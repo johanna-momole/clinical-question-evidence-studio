@@ -33,6 +33,34 @@ Checks applied to LLM-generated content:
 - Generated text is visually distinguished from retrieved facts
 - Deterministic fallback mode available and tested
 
+## Phase 4 Implemented Checks
+
+### Evidence record checks (`src/qa/evidence_checks.py`, run by `run_evidence_checks()`)
+
+| ID | Check | Severity | Trigger |
+|----|-------|----------|---------|
+| EQ-001 | Records have non-empty titles | major | `EvidenceRecord.title` is empty or whitespace |
+| EQ-002 | Records have source identifiers | major | `EvidenceRecord.identifier` is empty |
+| EQ-003 | Records have content hashes | critical | `EvidenceRecord.content_hash` is None or empty |
+| EQ-004 | Publication date present | minor | `EvidenceRecord.publication_or_update_date` is None |
+| EQ-005 | Date precision documented | minor | `date_precision == "unknown"` when a date is present |
+| EQ-006 | Review status is valid | critical | `review_status` is not one of: pending / included / excluded |
+| EQ-007 | Fixture records have manifest version | info | `is_fixture_data=True` but `fixture_manifest_version` is None on the raw record |
+| EQ-008 | No duplicate identifiers within source | major | Same `(source_type, identifier)` pair appears more than once in the record set |
+| EQ-009 | URL present for citation | minor | `EvidenceRecord.url` is None |
+| EQ-010 | Relevance score within bounds | major | `relevance_score` is not None and falls outside [0.0, 1.0] |
+
+### Retrieval run checks (`src/qa/retrieval_checks.py`, run by `run_retrieval_checks()`)
+
+| ID | Check | Severity | Trigger |
+|----|-------|----------|---------|
+| RQ-001 | At least one record retrieved | critical | Total records across all sources is zero |
+| RQ-002 | No fatal source errors | major | Any adapter recorded `is_fatal_for_source=True` |
+| RQ-003 | All requested sources were queried | major | A source listed in the request has no `EvidenceSourceStatus` entry |
+| RQ-004 | Provenance hash matches query hash | critical | `RetrievalProvenance.query_hash != EvidenceQuery.query_hash` |
+| RQ-005 | Demo environment uses offline fixtures | minor | `retrieval_mode != "offline_fixture"` |
+| RQ-006 | Post-dedup count ≤ retrieved count | critical | `total_records_after_dedup > total_records_retrieved` |
+
 ## Phase 3 Implemented Checks
 
 ### FHIR ingestion checks (`src/qa/fhir_checks.py`, run by `run_fhir_checks()`)

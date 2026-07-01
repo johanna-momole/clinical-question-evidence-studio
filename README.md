@@ -138,7 +138,17 @@ curl http://localhost:8000/info
 open http://localhost:8000/docs
 ```
 
-Phase 1 implements `/health` and `/info`. Full endpoints (parse, build, run, search, generate, export) are added in Phases 2–6.
+Phases 1–4 implement:
+- `GET /health` — service health
+- `GET /info` — API metadata and phase status
+- `POST /questions/parse` — PICO extraction
+- `POST /phenotypes/build` — phenotype builder
+- `POST /cohorts/run` — cohort execution
+- `POST /evidence/search` — evidence retrieval (offline-first, all sources)
+- `GET /evidence/sources` — source availability
+- `GET /evidence/runs/{run_id}` — retrieval run detail
+- `GET /evidence/{evidence_id}` — single evidence record
+- `POST /terminology/rxnorm/verify` — RxNorm terminology verification
 
 ## Testing
 
@@ -204,9 +214,9 @@ This is an educational portfolio project built by Johanna Momole to demonstrate 
 | Phase | Content | Status |
 |-------|---------|--------|
 | 1 | Foundation: schemas, config, fixtures, tests, CI, Docker, health API, overview page | ✅ Complete |
-| 2 | PICO extraction, phenotype builder, terminology mapping UI | Planned |
-| 3 | Synthetic FHIR parsing, cohort engine, attrition waterfall | Planned |
-| 4 | Evidence adapters (PubMed, CT.gov, CMS), caching, search | Planned |
+| 2 | PICO extraction, phenotype builder, terminology mapping UI | ✅ Complete |
+| 3 | Synthetic FHIR parsing, cohort engine, attrition waterfall | ✅ Complete |
+| 4 | External evidence retrieval (PubMed, CT.gov, CMS), normalization, metatagging, ranking, QA | ✅ Complete |
 | 5 | Evidence brief generation, citation validation, QA runner | Planned |
 | 6 | Full Streamlit pages, export center (JSON/MD/PDF/PPTX) | Planned |
 | 7 | UI polish, documentation, architecture diagrams, portfolio case study | Planned |

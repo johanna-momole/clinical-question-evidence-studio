@@ -1,0 +1,39 @@
+[
+  {
+    "nct_id": "NCT05073263",
+    "protocolSection": {
+      "identificationModule": {
+        "nctId": "NCT05073263",
+        "briefTitle": "FLOW: Evaluate Renal and Cardiovascular Outcomes with Semaglutide FLO in Participants With Type 2 Diabetes and Chronic Kidney Disease",
+        "officialTitle": "FLOW: A Multicenter, Randomized, Double-Blind, Placebo-Controlled Trial"
+      },
+      "statusModule": {
+        "overallStatus": "Active, not recruiting",
+        "hasResultsSection": false,
+        "primaryCompletionDate": {"date": "2024-03-08", "type": "actual"},
+        "studyFirstSubmitDate": "2021-10-08"
+      },
+      "sponsorCollaboratorsModule": {
+        "leadSponsor": {"name": "Novo Nordisk A/S", "class": "INDUSTRY"}
+      },
+      "descriptionModule": {
+        "briefSummary": "This trial evaluates semaglutide (GLP-1 receptor agonist) in patients with type 2 diabetes and CKD. Included as context for comparator class (GLP-1 agonists vs SGLT2 inhibitors)."
+      },
+      "designModule": {
+        "studyType": "Interventional",
+        "phases": ["Phase 3"],
+        "designInfo": {"allocation": "Randomized", "interventionModel": "Parallel Assignment", "maskingInfo": {"masking": "Double"}},
+        "enrollmentInfo": {"count": 3534, "type": "actual"}
+      },
+      "conditionsModule": {
+        "conditions": ["Chronic Kidney Disease", "Type 2 Diabetes Mellitus"]
+      },
+      "interventionsModule": {
+        "interventions": [
+          {"type": "Drug", "name": "Semaglutide", "description": "GLP-1 receptor agonist, 1.0 mg weekly subcutaneous"},
+          {"type": "Drug", "name": "Placebo"}
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "nct_id": "NCT01131676",
+    "protocolSection": {
+      "identificationModule": {
+        "nctId": "NCT01131676",
+        "briefTitle": "EMPA-REG OUTCOME: Empagliflozin Cardiovascular Outcome Event Trial in Type 2 Diabetes Mellitus Patients",
+        "officialTitle": "A Phase III Randomised, Double-Blind, Placebo-Controlled Trial to Evaluate Cardiovascular and Renal Microvascular Outcome Events with Empagliflozin (BI 10773) in Patients with Type 2 Diabetes Mellitus at High Cardiovascular Risk"
+      },
+      "statusModule": {
+        "overallStatus": "Completed",
+        "hasResultsSection": true,
+        "primaryCompletionDate": {"date": "2015-04-15", "type": "actual"},
+        "studyFirstSubmitDate": "2010-05-26"
+      },
+      "sponsorCollaboratorsModule": {
+        "leadSponsor": {"name": "Boehringer Ingelheim", "class": "INDUSTRY"}
+      },
+      "descriptionModule": {
+        "briefSummary": "This trial investigated the cardiovascular safety and efficacy of empagliflozin (SGLT2 inhibitor) versus placebo in patients with type 2 diabetes at high cardiovascular risk.",
+        "detailedDescription": null
+      },
+      "designModule": {
+        "studyType": "Interventional",
+        "phases": ["Phase 3"],
+        "designInfo": {"allocation": "Randomized", "interventionModel": "Parallel Assignment", "maskingInfo": {"masking": "Double"}},
+        "enrollmentInfo": {"count": 7020, "type": "actual"}
+      },
+      "conditionsModule": {
+        "conditions": ["Type 2 Diabetes Mellitus", "Cardiovascular Disease", "Chronic Kidney Disease"]
+      },
+      "interventionsModule": {
+        "interventions": [
+          {"type": "Drug", "name": "Empagliflozin", "description": "SGLT2 inhibitor, 10 mg or 25 mg once daily"},
+          {"type": "Drug", "name": "Placebo"}
+        ]
+      }
+    }
+  }
+]

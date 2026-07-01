@@ -1,0 +1,21 @@
+[
+  {
+    "pmid": "31535872",
+    "title": "SGLT-2 Inhibitors in Patients with Heart Failure and Type 2 Diabetes: a Meta-analysis",
+    "abstract": "OBJECTIVE: We performed a systematic review and meta-analysis of cardiovascular outcome trials with SGLT-2 inhibitors to estimate the effects on heart failure hospitalization, cardiovascular death, and kidney outcomes in patients with type 2 diabetes. METHODS: We searched MEDLINE, Embase, and Cochrane databases. Eligible trials were randomized controlled trials of SGLT-2 inhibitors reporting prespecified cardiovascular or kidney outcomes. RESULTS: Five trials were included (n=46 969). SGLT-2 inhibitors significantly reduced risk of heart failure hospitalization (RR 0.68, 95% CI 0.61-0.76) and kidney disease progression (RR 0.55, 95% CI 0.48-0.64). Results were consistent across subgroups defined by established cardiovascular disease.",
+    "authors": ["Zelniker TA", "Wiviott SD", "Raz I", "Im K", "Goodrich EL", "Bonaca MP", "Mosenzon O", "Kato ET", "Cahn A", "Bhatt DL"],
+    "journal": "Lancet",
+    "pub_date": {"year": 2019, "month": 9, "day": 7},
+    "doi": "10.1016/S0140-6736(19)31170-X",
+    "mesh_terms": [
+      "Sodium-Glucose Transporter 2 Inhibitors",
+      "Heart Failure",
+      "Diabetes Mellitus, Type 2",
+      "Meta-Analysis as Topic",
+      "Systematic Review"
+    ],
+    "publication_types": ["Meta-Analysis", "Systematic Review", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/31535872/"
+  }
+]

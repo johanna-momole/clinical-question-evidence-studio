@@ -198,3 +198,71 @@ def qa_status_color(status: str) -> str:
         "failed": "red",
         "not_applicable": "gray",
     }.get(status.lower(), "gray")
+
+
+# ------------------------------------------------------------------
+# Evidence helpers (Phase 4)
+# ------------------------------------------------------------------
+
+SESSION_KEY_RETRIEVAL_RUN = "retrieval_run"
+SESSION_KEY_EVIDENCE_RECORDS = "evidence_records"
+
+_DESIGN_DISPLAY = {
+    "meta_analysis": "Meta-Analysis",
+    "systematic_review": "Systematic Review",
+    "rct": "RCT",
+    "observational": "Observational",
+    "review": "Review",
+    "case_series": "Case Series",
+    "case_report": "Case Report",
+    "guidelines": "Guidelines",
+    "coverage_policy": "Coverage Policy",
+    "registry_data": "Registry Data",
+}
+
+_SOURCE_DISPLAY = {
+    "pubmed": "PubMed",
+    "clinical_trials_gov": "ClinicalTrials.gov",
+    "cms_coverage": "CMS Coverage",
+}
+
+
+def evidence_record_to_display_row(rec: dict) -> dict:
+    """Convert a normalized evidence record dict to a flat display row for st.dataframe."""
+    return {
+        "Title": rec.get("title", ""),
+        "Source": _SOURCE_DISPLAY.get(rec.get("source_name", ""), rec.get("source_type", "")),
+        "Identifier": rec.get("identifier", ""),
+        "Design": _DESIGN_DISPLAY.get(rec.get("study_design", ""), rec.get("study_design", "") or ""),
+        "Date": str(rec.get("publication_or_update_date", "") or ""),
+        "Relevance": f"{rec.get('relevance_score', 0.0) or 0.0:.2f}",
+        "Tags": ", ".join(rec.get("tags", [])),
+    }
+
+
+def source_status_to_display_rows(source_statuses: list[dict]) -> list[dict]:
+    """Convert source_statuses from a run response to display rows."""
+    return [
+        {
+            "Source": _SOURCE_DISPLAY.get(ss.get("source_name", ""), ss.get("source_name", "")),
+            "Retrieved": ss.get("records_retrieved", 0),
+            "After Normalization": ss.get("records_after_normalization", 0),
+            "Cache Hit": "Yes" if ss.get("cache_hit") else "No",
+            "Errors": ss.get("error_count", 0),
+        }
+        for ss in source_statuses
+    ]
+
+
+def evidence_qa_rows(qa_results: list[dict]) -> list[dict]:
+    """Convert evidence QA result dicts to display rows."""
+    return [
+        {
+            "ID": r.get("check_id", ""),
+            "Check": r.get("check_name", ""),
+            "Status": r.get("status", "").upper(),
+            "Severity": r.get("severity", ""),
+            "Details": r.get("details", "") or "",
+        }
+        for r in qa_results
+    ]

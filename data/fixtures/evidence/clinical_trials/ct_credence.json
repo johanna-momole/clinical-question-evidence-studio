@@ -1,0 +1,39 @@
+[
+  {
+    "nct_id": "NCT02065791",
+    "protocolSection": {
+      "identificationModule": {
+        "nctId": "NCT02065791",
+        "briefTitle": "CREDENCE: Canagliflozin and Renal Outcomes in Type 2 Diabetes and Nephropathy",
+        "officialTitle": "Canagliflozin and Renal Endpoints in Diabetes with Established Nephropathy Clinical Evaluation"
+      },
+      "statusModule": {
+        "overallStatus": "Completed",
+        "hasResultsSection": true,
+        "primaryCompletionDate": {"date": "2019-05-30", "type": "actual"},
+        "studyFirstSubmitDate": "2014-02-14"
+      },
+      "sponsorCollaboratorsModule": {
+        "leadSponsor": {"name": "Janssen Research & Development, LLC", "class": "INDUSTRY"}
+      },
+      "descriptionModule": {
+        "briefSummary": "CREDENCE tested whether canagliflozin reduces the risk of renal or cardiovascular events in patients with type 2 diabetes and albuminuric chronic kidney disease."
+      },
+      "designModule": {
+        "studyType": "Interventional",
+        "phases": ["Phase 3"],
+        "designInfo": {"allocation": "Randomized", "interventionModel": "Parallel Assignment", "maskingInfo": {"masking": "Double"}},
+        "enrollmentInfo": {"count": 4401, "type": "actual"}
+      },
+      "conditionsModule": {
+        "conditions": ["Diabetic Nephropathies", "Type 2 Diabetes Mellitus", "Chronic Kidney Disease"]
+      },
+      "interventionsModule": {
+        "interventions": [
+          {"type": "Drug", "name": "Canagliflozin", "description": "SGLT2 inhibitor, 100 mg once daily"},
+          {"type": "Drug", "name": "Placebo"}
+        ]
+      }
+    }
+  }
+]

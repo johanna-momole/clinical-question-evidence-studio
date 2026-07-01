@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "source": "cms_coverage",
+  "description": "Offline versioned CMS Medicare Coverage fixture set for SGLT2 inhibitors / diabetes / CKD. These are illustrative coverage documents based on CMS LCD/NCD structure. NOT real-time API responses.",
+  "query_context": "SGLT2 inhibitors; diabetes mellitus type 2; chronic kidney disease; antidiabetic agents",
+  "curated_at": "2025-06-01",
+  "fixture_files": [
+    "cms_lcd_antidiabetic.json",
+    "cms_ncd_sglt2_hf.json",
+    "cms_lcd_ckd_management.json"
+  ],
+  "notes": [
+    "LCD/NCD IDs in these fixtures are illustrative. Verify against the live CMS Coverage API before clinical use.",
+    "Coverage determinations reflect the document structure; they are not patient-specific advice."
+  ]
+}

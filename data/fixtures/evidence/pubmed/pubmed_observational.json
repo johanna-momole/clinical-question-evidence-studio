@@ -1,0 +1,21 @@
+[
+  {
+    "pmid": "33268382",
+    "title": "Real-world effectiveness of SGLT2 inhibitors and kidney outcomes in patients with type 2 diabetes and CKD",
+    "abstract": "BACKGROUND: Real-world data on SGLT2 inhibitors in patients with type 2 diabetes and chronic kidney disease (CKD) are limited. We conducted a population-based retrospective cohort study using administrative claims data. METHODS: We identified new users of SGLT2 inhibitors compared with new users of GLP-1 receptor agonists. The primary outcome was progression to end-stage kidney disease (ESKD). RESULTS: Among 35,470 patients, SGLT2 inhibitor use was associated with a significantly lower risk of ESKD (HR 0.68, 95% CI 0.54-0.86) compared with GLP-1 agonist use, after propensity score weighting. LIMITATIONS: Residual confounding from unmeasured variables cannot be excluded in this observational design.",
+    "authors": ["Patorno E", "Pawar A", "Franklin JM", "Najafzadeh M", "Deruaz-Luyet A", "Brodovicz KG", "Sambevski S", "Bessette LG", "Gopalakrishnan C", "Schneeweiss S"],
+    "journal": "Journal of the American Society of Nephrology",
+    "pub_date": {"year": 2021, "month": 2},
+    "doi": "10.1681/ASN.2020101425",
+    "mesh_terms": [
+      "Sodium-Glucose Transporter 2 Inhibitors",
+      "Renal Insufficiency, Chronic",
+      "Diabetes Mellitus, Type 2",
+      "Kidney Failure, Chronic",
+      "Retrospective Studies"
+    ],
+    "publication_types": ["Observational Study", "Journal Article"],
+    "language": "eng",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/33268382/"
+  }
+]

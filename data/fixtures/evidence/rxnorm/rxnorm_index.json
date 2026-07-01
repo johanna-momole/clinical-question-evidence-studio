@@ -1,0 +1,62 @@
+{
+  "2200644": {
+    "name": "empagliflozin",
+    "tty": "IN",
+    "is_active": true,
+    "notes": "Ingredient-level concept. Marketed as Jardiance.",
+    "raw_response": {
+      "rxcui": "2200644",
+      "name": "empagliflozin",
+      "synonym": "",
+      "tty": "IN",
+      "language": "ENG",
+      "suppress": "N",
+      "umlscui": ""
+    }
+  },
+  "1488564": {
+    "name": "dapagliflozin",
+    "tty": "IN",
+    "is_active": true,
+    "notes": "Ingredient-level concept. Marketed as Farxiga / Forxiga.",
+    "raw_response": {
+      "rxcui": "1488564",
+      "name": "dapagliflozin",
+      "synonym": "",
+      "tty": "IN",
+      "language": "ENG",
+      "suppress": "N",
+      "umlscui": ""
+    }
+  },
+  "1373458": {
+    "name": "canagliflozin",
+    "tty": "IN",
+    "is_active": true,
+    "notes": "Ingredient-level concept. Marketed as Invokana.",
+    "raw_response": {
+      "rxcui": "1373458",
+      "name": "canagliflozin",
+      "synonym": "",
+      "tty": "IN",
+      "language": "ENG",
+      "suppress": "N",
+      "umlscui": ""
+    }
+  },
+  "1992819": {
+    "name": "ertugliflozin",
+    "tty": "IN",
+    "is_active": true,
+    "notes": "Ingredient-level concept. Marketed as Steglatro.",
+    "raw_response": {
+      "rxcui": "1992819",
+      "name": "ertugliflozin",
+      "synonym": "",
+      "tty": "IN",
+      "language": "ENG",
+      "suppress": "N",
+      "umlscui": ""
+    }
+  }
+}

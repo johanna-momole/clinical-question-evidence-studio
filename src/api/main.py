@@ -18,9 +18,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from src.api.routes import cohorts as cohort_routes
+from src.api.routes import evidence as evidence_routes
 from src.api.routes import fhir as fhir_routes
 from src.api.routes import phenotypes as phenotype_routes
 from src.api.routes import questions as question_routes
+from src.api.routes import terminology as terminology_routes
 from src.config.settings import get_settings
 
 logger = logging.getLogger(__name__)
@@ -85,6 +87,8 @@ app.include_router(question_routes.router)
 app.include_router(phenotype_routes.router)
 app.include_router(fhir_routes.router)
 app.include_router(cohort_routes.router)
+app.include_router(evidence_routes.router)
+app.include_router(terminology_routes.router)
 
 
 # ── Response models ────────────────────────────────────────────────────────────
@@ -169,7 +173,26 @@ async def api_info() -> APIInfoResponse:
                 "phase": "3",
                 "status": "implemented",
             },
-            {"path": "/evidence/search", "method": "GET", "phase": "4", "status": "planned"},
+            {"path": "/evidence/search", "method": "POST", "phase": "4", "status": "implemented"},
+            {"path": "/evidence/sources", "method": "GET", "phase": "4", "status": "implemented"},
+            {
+                "path": "/evidence/runs/{run_id}",
+                "method": "GET",
+                "phase": "4",
+                "status": "implemented",
+            },
+            {
+                "path": "/evidence/{evidence_id}",
+                "method": "GET",
+                "phase": "4",
+                "status": "implemented",
+            },
+            {
+                "path": "/terminology/rxnorm/verify",
+                "method": "POST",
+                "phase": "4",
+                "status": "implemented",
+            },
             {"path": "/briefs/generate", "method": "POST", "phase": "5", "status": "planned"},
             {"path": "/qa/{run_id}", "method": "GET", "phase": "5", "status": "planned"},
             {"path": "/exports", "method": "POST", "phase": "6", "status": "planned"},

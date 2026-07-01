@@ -35,3 +35,42 @@ class DatasetNotFoundError(ValueError):
 
 class CohortRunNotFoundError(ValueError):
     """Raised when a requested cohort run_id has no saved record."""
+
+
+# ── Evidence retrieval exceptions ──────────────────────────────────────────────
+
+
+class EvidenceQueryBuildError(ValueError):
+    """Raised when query-builder preconditions are not met (unapproved question/phenotype)."""
+
+
+class RetrievalRunNotFoundError(ValueError):
+    """Raised when a requested evidence retrieval run_id has no saved record."""
+
+
+class EvidenceNotFoundError(ValueError):
+    """Raised when a requested evidence_id has no saved record."""
+
+
+class RetrievalSourceError(RuntimeError):
+    """Base for errors from an individual evidence-source adapter."""
+
+
+class RetrievalTimeoutError(RetrievalSourceError):
+    """Raised when an adapter request times out."""
+
+
+class RetrievalRateLimitError(RetrievalSourceError):
+    """Raised when an adapter receives a rate-limit response."""
+
+
+class RetrievalParseError(RetrievalSourceError):
+    """Raised when an adapter cannot parse a well-formed API or fixture response."""
+
+
+class FixtureManifestError(RuntimeError):
+    """Raised when an evidence fixture or its manifest file cannot be loaded or parsed."""
+
+
+class UnsupportedSourceError(ValueError):
+    """Raised when a requested evidence source name is not registered."""

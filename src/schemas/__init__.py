@@ -14,8 +14,13 @@ from src.schemas.cohort import (
 from src.schemas.evidence import (
     ClinicalTrialRecord,
     CoverageRecord,
+    EvidenceDeduplicationResult,
     EvidenceRecord,
+    EvidenceSearchResult,
+    EvidenceTag,
+    NormalizedEvidenceRecord,
     PublicationRecord,
+    RawEvidenceRecord,
 )
 from src.schemas.exports import ExportFormat, ExportManifest
 from src.schemas.fhir import (
@@ -47,7 +52,21 @@ from src.schemas.phenotype import (
 )
 from src.schemas.qa import ProvenanceRecord, QAResult, QASummary
 from src.schemas.question import AmbiguityFlag, ClinicalQuestion, PICOFramework
+from src.schemas.retrieval import (
+    EvidenceQuery,
+    EvidenceSourceStatus,
+    RetrievalError,
+    RetrievalProvenance,
+    RetrievalRequest,
+    RetrievalRun,
+    SourceSpecificQuery,
+)
 from src.schemas.synthesis import Citation, EvidenceBrief, GeneratedClaim
+from src.schemas.terminology_verification import (
+    TerminologyVerificationAuditRecord,
+    TerminologyVerificationRequest,
+    TerminologyVerificationResult,
+)
 
 __all__ = [
     # Question
@@ -83,11 +102,28 @@ __all__ = [
     "NormalizedProcedure",
     "ReferenceRange",
     "SyntheticDatasetInfo",
-    # Evidence
+    # Evidence (Phase 1/2 base + Phase 4 extensions)
     "ClinicalTrialRecord",
     "CoverageRecord",
+    "EvidenceDeduplicationResult",
     "EvidenceRecord",
+    "EvidenceSearchResult",
+    "EvidenceTag",
+    "NormalizedEvidenceRecord",
     "PublicationRecord",
+    "RawEvidenceRecord",
+    # Retrieval (Phase 4)
+    "EvidenceQuery",
+    "EvidenceSourceStatus",
+    "RetrievalError",
+    "RetrievalProvenance",
+    "RetrievalRequest",
+    "RetrievalRun",
+    "SourceSpecificQuery",
+    # Terminology verification (Phase 4)
+    "TerminologyVerificationAuditRecord",
+    "TerminologyVerificationRequest",
+    "TerminologyVerificationResult",
     # QA
     "ProvenanceRecord",
     "QAResult",

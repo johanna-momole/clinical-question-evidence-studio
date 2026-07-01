@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "source": "pubmed",
+  "description": "Offline versioned PubMed fixture set for SGLT2 inhibitors in T2DM + CKD. Records are manually curated from real published PubMed abstracts. They are NOT live API responses — do not claim these are real-time data.",
+  "query_context": "SGLT2 inhibitors (empagliflozin, dapagliflozin, canagliflozin) in Type 2 Diabetes with Chronic Kidney Disease",
+  "curated_at": "2025-06-01",
+  "fixture_files": [
+    "pubmed_rct_empareg.json",
+    "pubmed_rct_credence.json",
+    "pubmed_rct_declare.json",
+    "pubmed_meta_analysis.json",
+    "pubmed_observational.json",
+    "pubmed_missing_abstract.json"
+  ],
+  "notes": [
+    "These fixtures represent real published studies but are manually curated summaries, not verbatim API responses.",
+    "PMID values correspond to real PubMed records as of the curated_at date.",
+    "Do not use these records as authoritative clinical evidence without verifying against the live PubMed API."
+  ]
+}
