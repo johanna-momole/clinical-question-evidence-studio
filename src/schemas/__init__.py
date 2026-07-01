@@ -1,5 +1,23 @@
 """Consolidated schema exports for Clinical Question-Evidence Studio."""
 
+from src.schemas.brief import (
+    BriefAuditRecord,
+    BriefGenerationRequest,
+    BriefGenerationResult,
+    BriefProvenance,
+    BriefReviewRecord,
+    ClaimCitation,
+    DataOriginClass,
+    EvidenceGap,
+    EvidenceSnapshot,
+    EvidenceSnapshotRecord,
+)
+from src.schemas.brief import (
+    EvidenceBrief as EvidenceBriefV2,
+)
+from src.schemas.brief import (
+    GeneratedClaim as GeneratedClaimV2,
+)
 from src.schemas.cohort import (
     CohortAttrition,
     CohortConfiguration,
@@ -22,7 +40,15 @@ from src.schemas.evidence import (
     PublicationRecord,
     RawEvidenceRecord,
 )
-from src.schemas.exports import ExportFormat, ExportManifest
+from src.schemas.exports import (
+    ExportArtifact,
+    ExportBundle,
+    ExportFormat,
+    ExportManifest,
+    ExportProvenance,
+    ExportQAResult,
+    ExportRequest,
+)
 from src.schemas.fhir import (
     FHIRIngestionError,
     FHIRIngestionRequest,
@@ -60,20 +86,6 @@ from src.schemas.retrieval import (
     RetrievalRequest,
     RetrievalRun,
     SourceSpecificQuery,
-)
-from src.schemas.brief import (
-    BriefAuditRecord,
-    BriefGenerationRequest,
-    BriefGenerationResult,
-    BriefProvenance,
-    BriefReviewRecord,
-    ClaimCitation,
-    DataOriginClass,
-    EvidenceBrief as EvidenceBriefV2,
-    EvidenceGap,
-    EvidenceSnapshot,
-    EvidenceSnapshotRecord,
-    GeneratedClaim as GeneratedClaimV2,
 )
 from src.schemas.synthesis import Citation, EvidenceBrief, GeneratedClaim
 from src.schemas.terminology_verification import (
@@ -164,7 +176,12 @@ __all__ = [
     "ParseResult",
     "PhenotypeAuditRecord",
     "PhenotypeResult",
-    # Exports
+    # Exports (Phase 6)
+    "ExportArtifact",
+    "ExportBundle",
     "ExportFormat",
     "ExportManifest",
+    "ExportProvenance",
+    "ExportQAResult",
+    "ExportRequest",
 ]

@@ -182,8 +182,7 @@ class EvidenceService:
         raw_source_statuses = self._repo.source_coverage(run_id)
         # Derive ok/failed per source: if retrieved > 0 → ok, else → empty
         source_statuses = {
-            src: ("ok" if count > 0 else "empty")
-            for src, count in raw_source_statuses.items()
+            src: ("ok" if count > 0 else "empty") for src, count in raw_source_statuses.items()
         }
         return {
             "run_id": run_id,

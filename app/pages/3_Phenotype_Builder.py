@@ -21,6 +21,8 @@ from app.components.ui_helpers import (
     concept_display_name,
     mapping_review_summary,
     phenotype_to_json_bytes,
+    sidebar_data_note_text,
+    sidebar_disclaimer_text,
 )
 from src.phenotypes.service import get_phenotype_service
 
@@ -29,6 +31,11 @@ st.set_page_config(
     page_icon="🧬",
     layout="wide",
 )
+
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 st.markdown(
     """

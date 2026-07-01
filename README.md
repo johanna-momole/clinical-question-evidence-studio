@@ -1,235 +1,300 @@
 # Clinical Question-Evidence Studio
 
-[![CI](https://github.com/johannamomole/clinical-question-evidence-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/johannamomole/clinical-question-evidence-studio/actions)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Tests](https://img.shields.io/badge/tests-496%20passed-brightgreen.svg)](#testing)
+[![Coverage](https://img.shields.io/badge/coverage-83%25-green.svg)](#testing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Disclaimer:** This project uses entirely synthetic patient data and publicly available evidence. It is an educational portfolio prototype, has not been clinically validated, and does not provide medical advice.
+> **Required notice:** This project uses entirely synthetic patient data and publicly available evidence records. It is an educational portfolio prototype. It has not been clinically validated and does not provide medical advice. Nothing it produces constitutes a clinical recommendation.
 
 ---
 
 ## Project Summary
 
-An end-to-end clinical informatics portfolio prototype that converts a natural-language clinical research question into:
+An end-to-end clinical informatics portfolio prototype that converts a structured clinical question into a multi-format, citable evidence brief with full provenance tracking, quality assurance, and secure export.
 
-1. A structured PICO-style question
-2. A version-controlled computable phenotype with ICD-10-CM, RxNorm, and LOINC mappings
-3. A cohort generated from synthetic FHIR R4 patient data (Synthea)
-4. External evidence retrieved from PubMed and ClinicalTrials.gov
-5. A cited evidence brief with full provenance tracking
-6. JSON, Markdown, PDF, and PowerPoint exports
-7. Automated data-quality and content-quality checks at every step
+**Pipeline stages:**
+1. Structured PICO-format clinical question with ambiguity detection
+2. Versioned computable phenotype (ICD-10-CM, RxNorm)
+3. Synthetic cohort simulation (700 Synthea FHIR R4 patients, 7-stage attrition)
+4. External evidence retrieval (PubMed, ClinicalTrials.gov, CMS Coverage)
+5. Immutable evidence snapshot with content-addressed hash
+6. Automated brief generation + 16-check QA suite + human review gate
+7. Multi-format export: JSON, Markdown, PDF, PPTX, TSV, ZIP bundle
 
-## Problem
+---
 
-Translating a clinical question into a computable phenotype, retrieving relevant evidence, and producing a citable summary with complete audit trails is time-consuming, error-prone, and lacks standard tooling in the research setting.
+## What This Project Is Not
+
+- **Not a clinical decision support tool.** No output informs patient care.
+- **Not a production system.** Local-only portfolio prototype.
+- **Not peer-reviewed evidence synthesis.** Brief content uses deterministic templates, not expert synthesis.
+- **Not validated against clinical guidelines.** QA checks verify structural integrity, not clinical accuracy.
+
+---
 
 ## Architecture
 
 ```
-Streamlit UI (port 8501)
-    ↕ HTTP
-FastAPI REST API (port 8000)
-    ↕
-src/ modules: config · schemas · llm · question_parser · terminology
-              fhir · cohorts · evidence_sources · synthesis · qa · exports
-    ↕
-DuckDB (local) · Synthea fixtures · Public APIs (PubMed, CT.gov, CMS)
+┌──────────────────────────────────────────────┐
+│            Streamlit UI — 7 pages            │
+│  Home · Question · Phenotype · Cohort ·      │
+│  Evidence · Brief · Export Center            │
+└────────────────────┬─────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────┐
+│           FastAPI REST API — port 8000        │
+│  /questions /phenotypes /cohorts /evidence   │
+│  /briefs    /reviews    /exports  /info      │
+└────────────────────┬─────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────┐
+│    src/ — Pydantic-validated service layer   │
+│  question · phenotype · cohort · evidence    │
+│  synthesis · review · exports · terminology  │
+└────────────────────┬─────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────┐
+│  DuckDB (local) · Versioned fixtures         │
+│  Synthea FHIR R4 · Public APIs (offline-ok) │
+└──────────────────────────────────────────────┘
 ```
 
 See [docs/architecture.md](docs/architecture.md) for the full diagram.
 
-## Supported Demo Question (Phase 1)
+---
 
-> "Among adults with type 2 diabetes and chronic kidney disease, how would a computable cohort for SGLT2 inhibitor research be defined, and what external evidence is available?"
+## Demo Clinical Question
+
+> "Among adults with type 2 diabetes and chronic kidney disease, does treatment with SGLT2 inhibitors reduce the risk of cardiovascular events compared to other glucose-lowering agents?"
 
 - **Population:** Adults ≥18 with T2DM (ICD-10-CM E11.*) and CKD (N18.1–N18.5)
 - **Intervention:** SGLT2 inhibitors (empagliflozin, dapagliflozin, canagliflozin)
-- **Comparator:** None (descriptive cohort characterization)
-- **Data:** Synthetic Synthea FHIR R4 patients
+- **Comparator:** Other glucose-lowering agents
+- **Outcomes:** CV events, HF hospitalization, renal endpoints
+- **Patient data:** Entirely synthetic (Synthea FHIR R4, 700 patients)
+
+---
 
 ## Technical Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Language | Python 3.12 |
-| Web UI | Streamlit |
+|---|---|
+| Language | Python 3.12+ |
+| UI | Streamlit 1.45+ |
 | API | FastAPI + Uvicorn |
 | Schemas | Pydantic v2 |
 | Analytics DB | DuckDB |
-| Data wrangling | pandas, Polars |
-| Charts | Plotly |
-| LLM interface | Provider-agnostic (Anthropic / OpenAI / Demo) |
-| Exports | python-pptx, reportlab, JSON, Markdown |
-| Testing | pytest + pytest-cov |
-| Linting | Ruff |
+| Document generation | reportlab (PDF), python-pptx (PPTX) |
+| Testing | pytest 9+, pytest-cov |
+| Linting / formatting | Ruff |
 | Type checking | mypy |
-| Infrastructure | Docker, Docker Compose, GitHub Actions |
+| Infrastructure | Docker, Docker Compose |
+
+---
+
+## Supported Export Formats
+
+| Format | Description |
+|---|---|
+| `json` | Full structured brief as JSON |
+| `markdown` | Human-readable brief with citations |
+| `citation_map_tsv` | Claim-to-source audit table (TSV) |
+| `citation_map_json` | Machine-readable citation map |
+| `qa_report_markdown` | QA check results |
+| `qa_report_json` | Machine-readable QA results |
+| `review_history_markdown` | Human review history |
+| `review_history_json` | Machine-readable review history |
+| `provenance` | Generation audit record (JSON) |
+| `schema` | EvidenceBrief JSON Schema |
+| `pdf` | Formatted evidence brief (reportlab) |
+| `pptx` | Evidence summary slides (python-pptx) |
+| `zip` | All of the above + manifest with SHA-256 checksums |
+
+Every artifact includes a SHA-256 checksum, review status at export time, and data-origin classification.
+
+---
 
 ## Setup
 
 ### Prerequisites
-- Python 3.12+
-- Docker and Docker Compose (optional but recommended)
+- Python 3.12+ (3.14.x also confirmed working)
+- Docker Desktop with Linux engine (optional)
 
-### Quick Start (local)
+### Quick Start
 
 ```bash
-# 1. Clone and enter the repository
-git clone https://github.com/johannamomole/clinical-question-evidence-studio.git
+# Clone
+git clone <repo-url>
 cd clinical-question-evidence-studio
 
-# 2. Create and activate virtual environment
+# Virtual environment
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate        # Linux/macOS
+.venv\Scripts\activate           # Windows
 
-# 3. Install dependencies
+# Install
 pip install -e ".[dev]"
 
-# 4. Copy environment template
-cp .env.example .env
-# Edit .env if you want live LLM support; leave DEMO_MODE=true for offline demo
+# Run tests
+pytest                            # 496 tests, ~19 seconds
 
-# 5. Run the Streamlit app
-streamlit run app/Home.py
+# End-to-end demo (offline, no API keys required)
+python scripts/run_end_to_end_demo.py
 
-# 6. (Optional) Run the FastAPI server in a second terminal
+# Launch UI
+streamlit run app/Home.py         # http://localhost:8501
+
+# Launch API (optional, separate terminal)
 uvicorn src.api.main:app --reload --port 8000
 ```
 
 ### Docker
 
 ```bash
-# Build and start both services (Streamlit + FastAPI)
-docker compose up -d
-
-# View logs
-docker compose logs -f
-
-# Access
+docker compose up --build
 # Streamlit: http://localhost:8501
-# FastAPI:   http://localhost:8000
-# API docs:  http://localhost:8000/docs
+# FastAPI:   http://localhost:8000/docs
 ```
 
 ### Demo Mode
 
-The application runs in deterministic demo mode by default (`DEMO_MODE=true` in `.env`). No API keys are required. All external evidence is served from local fixture files, and all LLM responses use pre-computed outputs.
-
-To enable live LLM responses:
-```env
-DEMO_MODE=false
-LLM_PROVIDER=anthropic
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-## API
-
-FastAPI exposes a REST API with automatic Swagger documentation.
+All tests and the demo script run offline by default using versioned fixture files. No API keys are required. To enable live evidence retrieval:
 
 ```bash
-# Health check
-curl http://localhost:8000/health
-
-# API metadata
-curl http://localhost:8000/info
-
-# Documentation
-open http://localhost:8000/docs
+# .env
+PUBMED_LIVE_RETRIEVAL=true
+NCBI_API_KEY=your-key-here
 ```
 
-Phases 1–5 implement:
-- `GET /health` — service health
-- `GET /info` — API metadata and phase status
-- `POST /questions/parse` — PICO extraction
-- `POST /phenotypes/build` — phenotype builder
-- `POST /cohorts/run` — cohort execution
-- `POST /evidence/search` — evidence retrieval (offline-first, all sources)
-- `GET /evidence/sources` — source availability
-- `GET /evidence/runs/{run_id}` — retrieval run detail
-- `GET /evidence/{evidence_id}` — single evidence record
-- `POST /terminology/rxnorm/verify` — RxNorm terminology verification
-- `POST /briefs/generate` — evidence brief generation with 8-step QA pipeline
-- `GET /briefs/{brief_id}` — retrieve a generated brief
-- `POST /briefs/{brief_id}/review` — submit human review action
-- `GET /briefs/{brief_id}/review-history` — retrieve review audit trail
-- `GET /briefs/{brief_id}/sources` — retrieve evidence snapshot for a brief
+---
+
+## API Endpoints
+
+```
+GET  /health                          — Service health
+GET  /info                            — API metadata and endpoint status
+
+POST /questions/parse                 — PICO extraction
+POST /phenotypes/build                — Phenotype builder
+POST /cohorts/run                     — Synthetic cohort simulation
+POST /evidence/search                 — Evidence retrieval (offline-first)
+GET  /evidence/sources                — Source availability
+GET  /evidence/runs/{run_id}          — Retrieval run detail
+
+POST /briefs/generate                 — Evidence brief generation
+GET  /briefs/{brief_id}               — Retrieve brief
+POST /briefs/{brief_id}/review        — Submit review action
+GET  /briefs/{brief_id}/review-history— Reviewer audit trail
+
+GET  /exports/formats                 — List supported export formats
+POST /exports                         — Generate export bundle (metadata)
+POST /exports/download                — Generate and stream single format
+GET  /exports/{manifest_id}/manifest  — Retrieve persisted manifest
+```
+
+---
 
 ## Testing
 
 ```bash
-# All tests
-pytest tests/ -v
-
-# Unit tests only
-pytest tests/unit/ -v
+# All tests (496 total)
+pytest
 
 # With coverage
-pytest tests/ --cov=src --cov-report=term-missing
+pytest --cov=src --cov-report=term-missing
 
-# Validate fixtures
-python scripts/generate_fixtures.py
+# Phase 6 export tests only
+pytest tests/unit/test_exports_phase6.py -v
+
+# Unit tests only
+pytest tests/unit/
+
+# Integration tests only
+pytest tests/integration/
 ```
 
-## Quality Assurance Framework
+**Test counts by category:**
 
-QA runs at every pipeline step and produces `QAResult` objects in three categories:
+| Category | Tests |
+|---|---|
+| Schemas and validation | ~80 |
+| Business logic (services) | ~120 |
+| Exports — Phase 6 | 78 |
+| QA check suite | ~60 |
+| Human review | ~40 |
+| UI helpers | ~30 |
+| FastAPI integration | ~88 |
 
-- **Data quality** — schema validation, attrition reconciliation, missingness
-- **Evidence quality** — citation coverage, source freshness, deduplication
-- **AI quality** — uncited claim detection, causal claim flagging, provenance logging
+---
 
-See [docs/qa_framework.md](docs/qa_framework.md) for the full check catalog.
+## Security Model
+
+The export pipeline enforces:
+
+- **Export gate:** Blocks on invalid disclaimer, missing snapshot, or critical QA failures
+- **Path traversal protection:** No ZIP entry may start with `/`, `\`, `../`, or `..\`
+- **ZIP-slip protection:** Post-generation `verify_zip()` scans all entries
+- **Blocked files:** `.env`, `id_rsa`, `.pyc`, `__pycache__/`, `.git/` — never in ZIP
+- **Filename sanitization:** Only `[a-zA-Z0-9_-]` in filename stems; no path separators in artifact filenames
+- **Checksum integrity:** SHA-256 on every artifact; manifest hash over all artifact hashes
+
+See [docs/security_review.md](docs/security_review.md) for the full security review.
+
+---
 
 ## Data Sources
 
 | Source | Type | Usage |
-|--------|------|-------|
-| Synthea | Synthetic FHIR R4 | Patient cohort data |
+|---|---|---|
+| Synthea | Synthetic FHIR R4 | Patient cohort (700 patients) |
 | PubMed / NCBI E-utilities | Public API | Literature metadata |
 | ClinicalTrials.gov API v2 | Public API | Trial records |
-| CMS Coverage Database | Public | LCD/NCD documents |
-| RxNorm (NLM) | Public API | Medication normalization |
+| CMS Coverage Database | Public | LCD/NCD coverage documents |
+| RxNorm (NLM) | Public API/terminology | Medication normalization |
 | ICD-10-CM | Terminology | Diagnosis coding |
-| LOINC | Terminology | Lab/clinical concepts |
 
-All external APIs have local fixture fallbacks for offline operation.
-
-## Limitations
-
-- Supports three curated questions; does not generalize to all medical conditions
-- Terminology mappings are candidate suggestions requiring clinical expert review
-- Synthetic cohort results reflect Synthea data patterns, not real-world epidemiology
-- Phase 5 supports JSON and Markdown export only; PDF and PPTX are not implemented
-- LLM text is labeled and separated from retrieved facts, but accuracy depends on source quality
-- No real patient data is used or displayed anywhere in this application
-
-## Ethical and Clinical Disclaimer
-
-This is an educational portfolio project built by Johanna Momole to demonstrate clinical informatics engineering skills. It:
-
-- Uses **only synthetic patient data** (Synthea) and publicly accessible evidence
-- Has **not been clinically validated** or deployed in any healthcare organization
-- Does **not provide medical advice** or patient-specific recommendations
-- Makes **no causal claims** from observational or synthetic data
-- Labels all LLM-suggested mappings as **candidate — requiring human review**
-
-## Project Roadmap
-
-| Phase | Content | Status |
-|-------|---------|--------|
-| 1 | Foundation: schemas, config, fixtures, tests, CI, Docker, health API, overview page | ✅ Complete |
-| 2 | PICO extraction, phenotype builder, terminology mapping UI | ✅ Complete |
-| 3 | Synthetic FHIR parsing, cohort engine, attrition waterfall | ✅ Complete |
-| 4 | External evidence retrieval (PubMed, CT.gov, CMS), normalization, metatagging, ranking, QA | ✅ Complete |
-| 5 | Evidence brief generation, citation validation, 16-check QA, human review, Streamlit page, Markdown export | ✅ Complete |
-| 6 | Full export center, portfolio polish, deployment docs | Planned |
-| 7 | UI polish, documentation, architecture diagrams, portfolio case study | Planned |
-
-## Portfolio Impact Statement
-
-This project demonstrates the ability to design and implement a production-style clinical informatics platform from scratch, including FHIR-based data modeling, standard ontology mapping (ICD-10-CM, RxNorm, LOINC), AI governance for healthcare, real-world evidence methodology, and full-stack Python engineering with CI/CD, Docker, and comprehensive testing.
+All external APIs have versioned local fixture fallbacks for offline operation.
 
 ---
 
-*Johanna Momole · johannafiola25@gmail.com · [GitHub](https://github.com/johannamomole)*
+## Known Limitations
+
+1. **Python 3.12 not verified in the build environment.** Developed on Python 3.14.6. Syntax is compatible with 3.12+.
+2. **Docker Linux engine required for `docker build`.** Dockerfile and Compose configuration are present but untested in the development environment.
+3. **Live retrieval is offline by default.** Fixtures cover the demo question. Other questions require live API access.
+4. **No authentication.** Local-only prototype. Do not expose to the internet.
+5. **DuckDB is single-writer.** Multi-process deployment requires switching to PostgreSQL.
+
+---
+
+## Phase Summary
+
+| Phase | Deliverable | Status |
+|---|---|---|
+| 1 | Foundation, schemas, DuckDB, CI scaffold | Complete |
+| 2 | PICO question builder, phenotype builder, RxNorm | Complete |
+| 3 | Synthetic cohort simulation, attrition pipeline | Complete |
+| 4 | Evidence retrieval, normalization, ranking, QA | Complete |
+| 5 | Brief generation, 16-check QA, human review, Markdown export | Complete |
+| 6 | PDF, PPTX, ZIP export, export security, deployment config | Complete |
+
+---
+
+## Documentation
+
+| Document | Description |
+|---|---|
+| [docs/architecture.md](docs/architecture.md) | Full system architecture |
+| [docs/portfolio_case_study.md](docs/portfolio_case_study.md) | Portfolio case study (skills, decisions, trade-offs) |
+| [docs/security_review.md](docs/security_review.md) | Security review |
+| [docs/deployment.md](docs/deployment.md) | Deployment guide |
+| [docs/brief_qa_framework.md](docs/brief_qa_framework.md) | QA check catalog |
+| [docs/evidence_provenance.md](docs/evidence_provenance.md) | Evidence provenance model |
+| [docs/human_review_workflow.md](docs/human_review_workflow.md) | Review state machine |
+| [docs/phase5_verification_report.md](docs/phase5_verification_report.md) | Phase 5 verification |
+
+---
+
+*Johanna Fiola · johannafiola25@gmail.com*  
+*Educational portfolio prototype. Not for clinical use.*

@@ -1,62 +1,286 @@
-# Portfolio Case Study: Clinical Question-Evidence Studio
+# Portfolio Case Study: Clinical Question-to-Evidence Studio
 
-## 1. Overview
+**Project type:** Clinical informatics portfolio prototype  
+**Author:** Johanna Fiola, Senior Healthcare Data Engineer / Clinical Informatician  
+**Status:** Phase 6 complete — deployment-ready portfolio project
 
-The Clinical Question-Evidence Studio is a portfolio prototype that demonstrates end-to-end clinical informatics engineering skills. It converts a natural-language clinical research question into a structured PICO framework, computable phenotype, synthetic cohort, and cited evidence brief — with full provenance tracking and automated quality assurance.
+---
 
-**Disclaimer:** This project uses entirely synthetic patient data and publicly available evidence. It is an educational portfolio prototype, has not been clinically validated, and does not provide medical advice.
+## 1. Executive Summary
 
-## 2. Problem
+The Clinical Question-to-Evidence Studio is a seven-phase, end-to-end clinical informatics pipeline that transforms a structured clinical question into a multi-format, citable evidence brief. The project demonstrates production-grade practices in healthcare data engineering: schema-validated data models, immutable evidence provenance, deterministic generation with human review gates, and secure multi-format export with full audit trails.
 
-Healthcare researchers spend significant time manually translating clinical questions into computable cohort definitions, searching literature across multiple databases, and assembling evidence summaries. Each step is error-prone, time-consuming, and lacks standardized provenance documentation.
+**What this project is not:** A clinical decision support tool. It is an educational prototype that uses entirely synthetic patient data and publicly-available evidence records. Nothing it produces constitutes a clinical recommendation.
 
-## 3. Why It Matters
+---
 
-Real-world evidence (RWE) studies require rigorous phenotype definitions, systematic evidence retrieval, and transparent quality assurance. Demonstrating the ability to build a structured, auditable workflow at this intersection of clinical informatics, ontologies, AI, and software engineering directly addresses hiring needs in clinical data science, RWE, and healthcare analytics.
+## 2. Problem Statement
 
-## 4. Solution Architecture
+Clinical informaticians and evidence synthesis teams face a recurring challenge: translating a structured clinical question (in PICO format) into a reviewable, citation-backed evidence brief that can be shared across care teams. Existing workflows are manual, difficult to audit, and lack formal provenance tracking. This project demonstrates an automated pipeline that addresses these gaps while strictly enforcing safety constraints.
 
-A modular Python application with three layers:
-- **FastAPI** for reusable REST endpoints
-- **Streamlit** for an interactive portfolio-quality interface
-- **Shared source modules** with Pydantic-validated schemas connecting every layer
+---
 
-## 5. Clinical Question Workflow
+## 3. Technical Architecture
 
-The demo question — T2DM + CKD + SGLT2 inhibitors — was chosen because it maps to multiple completed landmark trials (EMPA-REG OUTCOME, CREDENCE, DAPA-CKD) and has well-established ICD-10-CM, RxNorm, and LOINC representations.
+```
+┌──────────────────────────────────────────────────────────────┐
+│                   Streamlit UI (7 pages)                     │
+│  Home → Question → Phenotype → Cohort → Evidence →          │
+│  Brief → Export Center                                       │
+└────────────────────────┬─────────────────────────────────────┘
+                         │ session state + DuckDB reads/writes
+┌────────────────────────▼─────────────────────────────────────┐
+│                   FastAPI (8 endpoints)                       │
+│  /questions  /phenotypes  /cohorts  /evidence                │
+│  /briefs     /reviews     /exports  /info                    │
+└────────────────────────┬─────────────────────────────────────┘
+                         │ Pydantic-validated domain objects
+┌────────────────────────▼─────────────────────────────────────┐
+│              Service Layer (6 domain services)               │
+│  QuestionService  PhenotypeService  CohortSimulator          │
+│  EvidenceService  EvidenceBriefService  ExportService        │
+└────────────────────────┬─────────────────────────────────────┘
+                         │ DuckDB (local) + versioned fixtures
+┌────────────────────────▼─────────────────────────────────────┐
+│              Persistence & Source Data                       │
+│  DuckDB (local analytics DB)                                 │
+│  Versioned fixture manifests (data/fixtures/)                │
+│  Synthea FHIR R4 synthetic cohort (700 patients)             │
+└──────────────────────────────────────────────────────────────┘
+```
 
-## 6. Ontology and FHIR Mapping
+**Key technology choices:**
+- **DuckDB** for local analytics persistence (zero-infrastructure, SQL, fast)
+- **Pydantic v2** for schema enforcement throughout every layer
+- **Streamlit** for rapid interactive prototype UI
+- **FastAPI** for programmatic API access to all pipeline stages
+- **reportlab / python-pptx** for structured document generation
 
-ICD-10-CM, RxNorm, and LOINC codes are mapped at the ingredient/concept level with explicit version tracking. All candidate mappings are labeled and require human review — the application does not silently promote LLM-suggested codes to approved status.
+---
 
-## 7. Synthetic Cohort Construction
+## 4. Data Architecture and Origin Classification
 
-A deterministic, seeded synthetic FHIR R4 dataset (160 fictional patients, modeled on Synthea-style generation patterns but produced by a custom generator bundled with this project, not the Synthea tool itself) is loaded, normalized, and run through a cohort engine that applies an approved phenotype's inclusion/exclusion rules as a sequential attrition waterfall. The attrition math is mathematically validated at the schema level (Pydantic `model_validator` enforces `records_out == records_in - records_excluded`) and independently re-checked by a QA layer (`coh-001`–`coh-008`). Two safety gates prevent an LLM from silently defining cohort membership: an unapproved phenotype cannot be executed, and concepts backed only by LLM-suggested, unverified terminology mappings (e.g., the SGLT2 RxNorm codes) are demoted to an explicit, opt-in exploratory filter rather than a required criterion. See [cohort_methodology.md](cohort_methodology.md) and [synthetic_data_methodology.md](synthetic_data_methodology.md) for full detail. All patient data is synthetic; this pipeline has not been run against, or validated with, real Synthea output or real patient data.
+Every data record in the pipeline carries a `DataOriginClass` label:
 
-## 8. Evidence Retrieval (Phase 4)
+| Class | Meaning |
+|---|---|
+| `live_api` | Retrieved directly from a live public API at run time |
+| `captured_source_fixture` | Retrieved from a live API and saved as a versioned fixture |
+| `manually_constructed_fixture` | Hand-authored for demonstration purposes |
+| `mixed` | Run contains records from more than one origin class |
 
-Source adapters for PubMed, ClinicalTrials.gov, and CMS Coverage retrieve real, publicly available records. The pipeline is **offline-first**: all retrieval defaults to versioned JSON fixture files under `data/fixtures/evidence/`, so the application runs deterministically without network access. Each fixture has a manifest with a version string that is propagated into the `RetrievalProvenance` record for every run, making results fully reproducible and auditable.
+This label propagates from individual `EvidenceSnapshotRecord` entries through the `EvidenceSnapshot`, the `EvidenceBrief`, and into every export artifact. No export may apply a single blanket label across content from different origins.
 
-The 8-step retrieval pipeline (`build_query → fetch → normalize → dedup → metatag → rank → QA → persist`) is orchestrated by `EvidenceService`. A DuckDB-backed cache (`EvidenceCache`) sits between fetch and the adapters; it is clock-injectable so the 24-hour TTL can be frozen deterministically in tests. Normalization maps raw payloads to typed `EvidenceRecord` subclasses (`PublicationRecord`, `ClinicalTrialRecord`, `CoverageRecord`) without modifying the original content hash. Deduplication is within-source only — records are **never merged across sources by title similarity**. Metatagging applies 7-dimension keyword rules (`population`, `intervention`, `comparator`, `outcome`, `design`, `source`, `temporal`), and relevance ranking uses a weighted score (population 0.30, intervention 0.30, outcome 0.20, design 0.10, recency 0.10).
+**Patient-level data** (synthetic cohort, attrition pipeline) is always labeled `synthetic` — generated by Synthea FHIR R4, never real patient data.
 
-RxNorm terminology verification (`RxNormAdapter`) checks a given RxCUI against the offline fixture. All verification results are stored as `TerminologyVerificationResult` records. **No mapping is auto-approved** — a human reviewer must explicitly apply the result to update a `TerminologyMapping.review_status`.
+---
 
-Two QA suites run on every retrieval: EQ-001 through EQ-010 (per-record) and RQ-001 through RQ-006 (run-level). The full check catalog is in [docs/qa_framework.md](qa_framework.md).
+## 5. Phase-by-Phase Design Decisions
 
-Evidence content is real, publicly available source data from PubMed, ClinicalTrials.gov, and CMS Coverage. It is never synthetic or artificially generated.
+### Phase 1 — Foundation
+Established the project scaffold: Pydantic schemas, DuckDB persistence layer, ruff + mypy configuration, and CI-compatible test structure. The key design decision was to encode `DataOriginClass` at the record level from day one rather than retrofitting it later.
 
-## 9. Quality Assurance
+### Phase 2 — Clinical Question Builder
+Implemented PICO-structured question input with ambiguity detection and RxNorm-aware terminology. **Critical constraint:** RxNorm mappings are never auto-approved — they require explicit human confirmation because automated terminology matching has known failure modes in polypharmacy and combination therapy contexts.
 
-QA is implemented as a first-class feature. Every pipeline step emits `QAResult` objects with severity levels (critical / major / minor / info). Critical failures block pipeline progression. AI-quality checks enforce citation coverage and detect uncited clinical claims.
+### Phase 3 — Phenotype Builder
+Built a versioned phenotype definition system with ICD-10-CM and RxNorm criteria. **Key decision:** phenotypes are versioned at the definition level and the version is propagated to every downstream artifact, so a change in phenotype criteria forces a new brief version rather than silently overwriting prior results.
 
-## 10. Technical Skills Demonstrated
+### Phase 4 — Synthetic Cohort Simulation
+Synthea FHIR R4 records (700 patients) run through a 7-stage attrition pipeline. The cohort results are labeled `synthetic` in every display and export context. **Critical constraint:** no patient-specific recommendations are ever generated, and cohort outputs are never presented as clinically representative.
 
-- Python 3.12, FastAPI, Streamlit, Pydantic v2
-- FHIR R4 resource handling (Patient, Condition, MedicationRequest, Observation)
-- Clinical terminologies: ICD-10-CM, RxNorm, LOINC
-- Provider-agnostic LLM interface with demo fallback
-- DuckDB for analytical storage with clean repository pattern
-- Docker and Docker Compose
-- GitHub Actions CI (lint, typecheck, test, Docker build)
-- Comprehensive test suite with pytest and schema-level invariants
-- Evidence synthesis with provenance and citation tracking
+### Phase 5 — External Evidence Retrieval
+Multi-source evidence retrieval (PubMed, ClinicalTrials.gov, CMS Coverage) with immutable snapshot creation. The `EvidenceSnapshot` is content-addressed: its hash covers the ordered record IDs and their content hashes, so any change to the underlying records changes the snapshot hash and invalidates any brief that referenced the prior snapshot.
+
+**Cross-source deduplication constraint:** Records from different sources are never merged by title similarity alone. Each record carries its own `source_specific_id` and `data_origin`, and deduplication requires manual human confirmation.
+
+### Phase 6 — Multi-Format Export and Deployment Readiness
+Added PDF (reportlab), PPTX (python-pptx), and ZIP bundle generation with a full export security model. See §8 for security details.
+
+---
+
+## 6. Human Review Gate Design
+
+Evidence briefs pass through a formal human review state machine:
+
+```
+not_reviewed → in_review → approved
+                         → changes_requested → in_review
+                         → rejected
+```
+
+**Design constraints enforced:**
+- Reviewer labels must not imply clinical validation ("Portfolio author review", "Technical review", "Peer review")
+- Status `approved` does not mean "approved for clinical use" — exports always display review status and the required disclaimer
+- An approved brief that lacks a content hash is warned (not blocked) — provenance is flagged as incomplete
+- Content hash is computed at brief creation and verified before export of approved briefs
+
+---
+
+## 7. Export Architecture
+
+The Export Center (Page 7) and `/exports` FastAPI endpoints share a common `ExportService` that orchestrates 13 output formats:
+
+| Format | Type | Content |
+|---|---|---|
+| `json` | Text | Full structured brief as JSON |
+| `markdown` | Text | Human-readable brief |
+| `citation_map_tsv` | Text | Claim-to-source audit table |
+| `citation_map_json` | Text | Machine-readable citation map |
+| `qa_report_markdown` | Text | QA check results |
+| `qa_report_json` | Text | Machine-readable QA results |
+| `review_history_markdown` | Text | Reviewer actions log |
+| `review_history_json` | Text | Machine-readable review history |
+| `provenance` | JSON | Generation audit record |
+| `schema` | JSON | EvidenceBrief JSON Schema |
+| `pdf` | Binary | Formatted evidence brief (reportlab) |
+| `pptx` | Binary | Evidence summary slides (python-pptx) |
+| `zip` | Binary | All of the above + manifest |
+
+Every artifact includes SHA-256 checksum, MIME type, review status at export time, data-origin classification, and generator/schema version.
+
+---
+
+## 8. Export Security Model
+
+The export pipeline enforces several security properties:
+
+**Export gate (pre-generation check):**
+- Blocks if brief disclaimer does not contain required safety language
+- Blocks if evidence snapshot is missing or its reference is incomplete
+- Blocks if critical QA failures are present (severity = "critical" AND status = "failed")
+
+**ZIP archive security:**
+- No archive entry may start with `/`, `\`, `../`, or `..\`
+- No absolute local paths in entries
+- Blocked filenames: `.env`, `id_rsa`, `id_ed25519`, `.DS_Store`, etc.
+- Blocked extensions: `.pyc`, `.pyo`, `.pyd`
+- Blocked directories: `__pycache__`, `.git`, `.venv`, `node_modules`
+- Post-generation `verify_zip()` pass confirms no violations slipped through
+
+**Filename safety:**
+- All filenames are sanitized: only `[a-zA-Z0-9_-]` in the stem
+- No path separators allowed in `ExportArtifact.filename` (validated by Pydantic)
+- SHA-256 is validated as exactly 64 lowercase hex characters
+
+**What export does NOT block:**
+- Unreviewed briefs: exports proceed but display review status prominently
+- Warning-level QA failures: warnings are surfaced but do not gate export
+
+---
+
+## 9. QA Check System
+
+16 QA checks (BQ-001 through BQ-016) validate the evidence brief before and during export. Critical-severity failures block export. Major-severity failures surface as warnings. The full list is documented in `docs/brief_qa_framework.md`.
+
+---
+
+## 10. Determinism and Reproducibility
+
+The pipeline runs in `deterministic` mode by default:
+
+- All synthetic cohort attrition stages are seeded (`random.seed("sglt2-ckd-demo")`)
+- Brief generation uses pre-validated templates mapped to the current evidence snapshot
+- Templates do not call a live LLM; outputs are reproducible given the same snapshot
+- The content hash over claims + citations + disclaimer changes only when inputs change
+- Running the demo script twice with the same fixtures produces identical hashes
+
+---
+
+## 11. Test Strategy
+
+**496 tests** across 22 test modules. Coverage: 83% overall (target: >80%). All tests run offline by default. Live API tests are marked `@pytest.mark.live` and excluded from the default suite.
+
+| Category | Count |
+|---|---|
+| Unit — schemas | ~80 |
+| Unit — services | ~120 |
+| Unit — exports (Phase 6) | 78 |
+| Unit — QA checks | ~60 |
+| Unit — review | ~40 |
+| Unit — UI helpers | ~30 |
+| Integration | ~88 |
+
+---
+
+## 12. Known Limitations
+
+1. **Python 3.12 not available in the development environment.** The project targets Python 3.12 for production but was developed on Python 3.14.6.
+
+2. **Docker Linux engine not available.** Dockerfile and Compose configuration are present and structurally valid but cannot be exercised locally.
+
+3. **Live evidence retrieval is offline by default.** All retrieval tests and the default demo run use versioned fixtures.
+
+4. **No real patient data.** The synthetic cohort uses Synthea FHIR R4 outputs. Results are not clinically representative.
+
+5. **No production deployment.** This is a local-only portfolio prototype.
+
+---
+
+## 13. What This Project Is Not
+
+- **Not a clinical decision support tool.** Nothing this project produces should inform patient care.
+- **Not a production system.** It is a portfolio prototype demonstrating technical competency.
+- **Not a peer-reviewed evidence synthesis.** Brief content is generated from automated templates, not human expert synthesis.
+- **Not validated against clinical guidelines.** The QA checks verify structural integrity, not clinical accuracy.
+- **Not a replacement for systematic review.**
+
+---
+
+## 14. Skills Demonstrated
+
+| Skill | Evidence in project |
+|---|---|
+| Healthcare data standards | FHIR R4 (Synthea), ICD-10-CM, RxNorm, PMID, NCT IDs |
+| Clinical data modeling | Pydantic schemas with clinical constraints and provenance tracking |
+| Database engineering | DuckDB schema design, DDL, idempotent persistence patterns |
+| API design | RESTful FastAPI with typed request/response models |
+| Security engineering | Path traversal protection, ZIP security, filename sanitization |
+| Document generation | reportlab PDF, python-pptx PowerPoint with required disclaimers |
+| Software quality | 496 tests, 83% coverage, ruff + mypy clean |
+| Clinical informatics constraints | Disclaimer enforcement, review gates, synthetic data labeling |
+| DevOps readiness | Dockerfile, Compose, health checks, environment variable configuration |
+
+---
+
+## 15. Running the Demo
+
+```bash
+# Install dependencies
+python -m pip install -e ".[dev]"
+
+# Run the end-to-end offline demo
+python scripts/run_end_to_end_demo.py
+
+# Run tests
+pytest
+
+# Start the Streamlit UI
+streamlit run app/Home.py
+
+# Start the FastAPI server
+uvicorn src.api.main:app --reload
+```
+
+---
+
+## 16. Phase Summary
+
+| Phase | Deliverable | Status |
+|---|---|---|
+| 1 | Foundation, schemas, persistence | Complete |
+| 2 | Clinical question and PICO builder | Complete |
+| 3 | Phenotype definition builder | Complete |
+| 4 | Synthetic cohort simulation (700 patients) | Complete |
+| 5 | Evidence retrieval, snapshot, brief generation, QA, human review | Complete |
+| 6 | Multi-format exports, export security, deployment config | Complete |
+
+---
+
+## 17. Contact
+
+**Author:** Johanna Fiola  
+**Email:** johannafiola25@gmail.com  
+**Role:** Senior Healthcare Data Engineer / Clinical Informatician
+
+*This project is an educational portfolio prototype and does not represent any employer or clinical institution.*

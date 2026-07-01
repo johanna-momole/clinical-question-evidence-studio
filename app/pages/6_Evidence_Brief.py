@@ -23,6 +23,8 @@ from app.components.ui_helpers import (
     SESSION_KEY_PHENOTYPE,
     SESSION_KEY_QUESTION,
     SESSION_KEY_RETRIEVAL_RUN,
+    sidebar_data_note_text,
+    sidebar_disclaimer_text,
 )
 
 st.set_page_config(
@@ -30,6 +32,11 @@ st.set_page_config(
     page_icon="📄",
     layout="wide",
 )
+
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 # ---------------------------------------------------------------------------
 # Safety disclaimer — always visible, always first

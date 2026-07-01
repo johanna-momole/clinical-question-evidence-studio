@@ -246,8 +246,7 @@ def run_brief_checks(
                 "major",
                 affected=causal_violations,
                 details=(
-                    f"{len(causal_violations)} claim(s) use causal language "
-                    "with non-RCT sources."
+                    f"{len(causal_violations)} claim(s) use causal language with non-RCT sources."
                 ),
             )
         )

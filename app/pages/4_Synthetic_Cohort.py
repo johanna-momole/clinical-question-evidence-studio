@@ -27,6 +27,8 @@ from app.components.ui_helpers import (
     cohort_run_to_json_bytes,
     format_attrition_pct,
     qa_summary_rows,
+    sidebar_data_note_text,
+    sidebar_disclaimer_text,
 )
 
 st.set_page_config(
@@ -34,6 +36,11 @@ st.set_page_config(
     page_icon="🧪",
     layout="wide",
 )
+
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 st.markdown(
     """

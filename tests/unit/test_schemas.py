@@ -386,9 +386,23 @@ class TestEvidenceBriefSchemas:
 # ── ExportManifest ─────────────────────────────────────────────────────────────
 
 
+_MANIFEST_BASE = {
+    "manifest_id": "m-001",
+    "brief_id": "b-001",
+    "brief_version": 1,
+    "brief_content_hash": "ch",
+    "snapshot_hash": "sh",
+    "bundle_name": "b-001_bundle.zip",
+    "generation_mode": "deterministic",
+    "origin_classification": "captured_source_fixture",
+    "review_status": "not_reviewed",
+}
+
+
 class TestExportManifest:
     def test_all_succeeded_property(self) -> None:
         manifest = ExportManifest(
+            **_MANIFEST_BASE,
             run_id="run-001",
             formats_requested=["json", "markdown"],
             formats_completed=["json", "markdown"],
@@ -397,6 +411,7 @@ class TestExportManifest:
 
     def test_partial_completion_not_succeeded(self) -> None:
         manifest = ExportManifest(
+            **_MANIFEST_BASE,
             run_id="run-002",
             formats_requested=["json", "pdf"],
             formats_completed=["json"],

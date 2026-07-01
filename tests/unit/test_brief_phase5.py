@@ -17,25 +17,17 @@ All live tests are excluded from the default suite via @pytest.mark.live.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
-
-UTC = timezone.utc
-from typing import Any
 
 import pytest
 
 from src.qa.brief_checks import has_critical_failures, run_brief_checks
 from src.schemas.brief import (
-    BriefProvenance,
+    _REQUIRED_DISCLAIMER_FRAGMENT,
     BriefReviewRecord,
-    ClaimCitation,
     EvidenceBrief,
-    EvidenceGap,
     EvidenceSnapshot,
     EvidenceSnapshotRecord,
     GeneratedClaim,
-    _REQUIRED_DISCLAIMER_FRAGMENT,
-    _make_disclaimer,
 )
 from src.synthesis.citation_resolver import resolve_citations
 from src.synthesis.evidence_snapshot import build_snapshot
@@ -53,7 +45,6 @@ from src.utils.exceptions import (
     InvalidReviewTransitionError,
     MissingExpectedSourceError,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -518,15 +509,29 @@ class TestBriefQAChecks:
 
     def test_has_critical_failures_detects_critical_failed(self) -> None:
         qa_results = [
-            {"check_id": "bq-001", "status": "failed", "severity": "critical",
-             "check_name": "test", "description": "test", "details": None, "affected": []},
+            {
+                "check_id": "bq-001",
+                "status": "failed",
+                "severity": "critical",
+                "check_name": "test",
+                "description": "test",
+                "details": None,
+                "affected": [],
+            },
         ]
         assert has_critical_failures(qa_results) is True
 
     def test_has_critical_failures_ignores_warning(self) -> None:
         qa_results = [
-            {"check_id": "bq-006", "status": "warning", "severity": "major",
-             "check_name": "test", "description": "test", "details": None, "affected": []},
+            {
+                "check_id": "bq-006",
+                "status": "warning",
+                "severity": "major",
+                "check_name": "test",
+                "description": "test",
+                "details": None,
+                "affected": [],
+            },
         ]
         assert has_critical_failures(qa_results) is False
 
@@ -571,8 +576,10 @@ class TestLimitationsGenerator:
 
     def test_trial_no_results_limitation(self) -> None:
         trial_rec = _make_snapshot_record(
-            "ev-trial-001", "NCT001", "clinical_trial",
-            warnings=["Trial results not yet posted — do not treat as efficacy evidence."]
+            "ev-trial-001",
+            "NCT001",
+            "clinical_trial",
+            warnings=["Trial results not yet posted — do not treat as efficacy evidence."],
         )
         snap = _make_snapshot([trial_rec])
         lims = generate_limitations(snap)
@@ -610,8 +617,15 @@ class TestSynthesisRepository:
         repo.save_brief(brief)
 
         qa = [
-            {"check_id": "bq-001", "check_name": "Citations", "status": "passed",
-             "severity": "critical", "description": "OK", "details": None, "affected": []},
+            {
+                "check_id": "bq-001",
+                "check_name": "Citations",
+                "status": "passed",
+                "severity": "critical",
+                "description": "OK",
+                "details": None,
+                "affected": [],
+            },
         ]
         repo.save_qa_results(brief.brief_id, qa)
         loaded_qa = repo.get_brief_qa(brief.brief_id)
@@ -701,7 +715,7 @@ class TestBriefReviewService:
         assert record.previous_status == "not_reviewed"
 
     def test_invalid_transition_raises(self) -> None:
-        from src.review.brief_review_service import BriefReviewService, _check_transition
+        from src.review.brief_review_service import _check_transition
 
         with pytest.raises(InvalidReviewTransitionError):
             _check_transition("not_reviewed", "approved")

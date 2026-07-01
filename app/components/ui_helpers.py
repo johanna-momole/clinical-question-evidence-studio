@@ -268,3 +268,77 @@ def evidence_qa_rows(qa_results: list[dict]) -> list[dict]:
         }
         for r in qa_results
     ]
+
+
+# ------------------------------------------------------------------
+# Export helpers (Phase 6)
+# ------------------------------------------------------------------
+
+SESSION_KEY_BRIEF_ID = "generated_brief_id"
+SESSION_KEY_BRIEF_DATA = "generated_brief"
+
+
+def format_file_size(byte_size: int) -> str:
+    """Return a human-readable file size string."""
+    if byte_size < 1024:
+        return f"{byte_size} B"
+    elif byte_size < 1024 * 1024:
+        return f"{byte_size / 1024:.1f} KB"
+    else:
+        return f"{byte_size / (1024 * 1024):.2f} MB"
+
+
+def export_artifact_rows(artifacts: list[dict]) -> list[dict]:
+    """Convert export artifact dicts to display rows."""
+    return [
+        {
+            "Format": a.get("export_format", ""),
+            "Filename": a.get("filename", ""),
+            "Size": format_file_size(a.get("byte_size", 0)),
+            "SHA-256": (a.get("sha256", "") or "")[:16] + "…",
+            "Origin": a.get("origin_classification", ""),
+            "Review": a.get("review_status", ""),
+        }
+        for a in artifacts
+    ]
+
+
+def brief_qa_rows(qa_results: list[dict]) -> list[dict]:
+    """Convert brief QA result dicts to display rows."""
+    return [
+        {
+            "ID": r.get("check_id", ""),
+            "Check": r.get("check_name", ""),
+            "Status": r.get("status", "").upper(),
+            "Severity": r.get("severity", ""),
+            "Details": (r.get("details", "") or "")[:120],
+        }
+        for r in qa_results
+    ]
+
+
+# ------------------------------------------------------------------
+# Sidebar helpers (Phase 6 UI polish)
+# ------------------------------------------------------------------
+
+_SIDEBAR_DISCLAIMER = (
+    "**Educational Prototype**\n\n"
+    "This application uses entirely synthetic patient data and a combination of "
+    "public-source records and versioned demonstration fixtures.\n\n"
+    "It has **not been clinically validated** and does **not provide medical advice**."
+)
+
+_SIDEBAR_DATA_NOTE = (
+    "**Patient data:** Entirely synthetic (Synthea FHIR R4).  \n"
+    "**External evidence:** Origin labeled per-record and per-run."
+)
+
+
+def sidebar_disclaimer_text() -> str:
+    """Return the persistent sidebar disclaimer string."""
+    return _SIDEBAR_DISCLAIMER
+
+
+def sidebar_data_note_text() -> str:
+    """Return the sidebar data-origin note string."""
+    return _SIDEBAR_DATA_NOTE

@@ -20,6 +20,8 @@ from app.components.ui_helpers import (
     format_ambiguity_label,
     new_run_id,
     question_to_json_bytes,
+    sidebar_data_note_text,
+    sidebar_disclaimer_text,
     validate_pico_completeness,
 )
 from src.question_parser.service import get_question_service
@@ -29,6 +31,11 @@ st.set_page_config(
     page_icon="📋",
     layout="wide",
 )
+
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 # ──────────────────────────────────────────────
 # Minimal CSS

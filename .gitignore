@@ -43,8 +43,8 @@ Thumbs.db
 *.db
 *.duckdb
 
-# Exports (generated outputs)
-exports/
+# Exports (generated output files — root-level only, not src/exports/)
+/exports/
 *.pdf
 *.pptx
 

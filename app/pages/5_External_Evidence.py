@@ -28,6 +28,8 @@ from app.components.ui_helpers import (
     SESSION_KEY_RETRIEVAL_RUN,
     evidence_qa_rows,
     evidence_record_to_display_row,
+    sidebar_data_note_text,
+    sidebar_disclaimer_text,
     source_status_to_display_rows,
 )
 
@@ -36,6 +38,11 @@ st.set_page_config(
     page_icon="📚",
     layout="wide",
 )
+
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 # ------------------------------------------------------------------
 # Gate checks

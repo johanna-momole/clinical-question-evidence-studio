@@ -20,7 +20,6 @@ from src.review.brief_review_service import BriefReviewService
 from src.schemas.brief import (
     BriefGenerationResult,
     BriefReviewStatus,
-    EvidenceBrief,
     GenerationMode,
 )
 from src.synthesis.brief_service import EvidenceBriefService
@@ -39,9 +38,7 @@ class BriefGenerateRequest(BaseModel):
     evidence_run_id: str
     question_id: str = "q-sglt2-ckd-cvd"
     generation_mode: GenerationMode = "deterministic"
-    question_text: str = (
-        "What is the evidence for SGLT2 inhibitors in adults with T2DM and CKD?"
-    )
+    question_text: str = "What is the evidence for SGLT2 inhibitors in adults with T2DM and CKD?"
 
 
 class BriefGenerateResponse(BaseModel):

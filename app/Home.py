@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
 
+from app.components.ui_helpers import sidebar_data_note_text, sidebar_disclaimer_text
 from src.config.settings import get_settings
 
 st.set_page_config(
@@ -82,6 +83,12 @@ st.markdown(
 )
 
 settings = get_settings()
+
+# ── Sidebar disclaimer ────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("---")
+    st.warning(sidebar_disclaimer_text())
+    st.caption(sidebar_data_note_text())
 
 # ── Header ─────────────────────────────────────────────────────────────────────
 col_title, col_badges = st.columns([4, 1])

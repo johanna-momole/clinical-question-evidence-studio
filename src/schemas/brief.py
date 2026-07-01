@@ -122,16 +122,14 @@ class GeneratedClaim(BaseModel):
     uncertainty_note: str | None = None
 
     @model_validator(mode="after")
-    def _validate_citation_rules(self) -> "GeneratedClaim":
+    def _validate_citation_rules(self) -> GeneratedClaim:
         if self.claim_type in ("supported", "exploratory"):
             if not self.source_ids:
                 raise ValueError(
                     f"Claim {self.claim_id!r} (type={self.claim_type!r}) requires at least one source_id."
                 )
         if self.claim_type == "exploratory" and not self.uncertainty_note:
-            raise ValueError(
-                f"Exploratory claim {self.claim_id!r} requires uncertainty_note."
-            )
+            raise ValueError(f"Exploratory claim {self.claim_id!r} requires uncertainty_note.")
         if (
             self.claim_type == "insufficient_evidence"
             and self.source_ids
@@ -212,7 +210,7 @@ class EvidenceSnapshot(BaseModel):
     )
 
     @model_validator(mode="after")
-    def _compute_hash(self) -> "EvidenceSnapshot":
+    def _compute_hash(self) -> EvidenceSnapshot:
         if not self.snapshot_hash:
             payload = _canon_json(
                 {
@@ -366,7 +364,7 @@ class EvidenceBrief(BaseModel):
     audit_metadata: dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode="after")
-    def _set_disclaimer_and_hash(self) -> "EvidenceBrief":
+    def _set_disclaimer_and_hash(self) -> EvidenceBrief:
         # Disclaimer is always set from generation_mode; cannot be cleared
         if not self.disclaimer:
             self.disclaimer = _make_disclaimer(self.generation_mode)
@@ -406,7 +404,7 @@ def _default_data_notice(origin: DataOriginClass) -> str:
     )
 
 
-def _compute_brief_hash(brief: "EvidenceBrief") -> str:
+def _compute_brief_hash(brief: EvidenceBrief) -> str:
     """Stable content hash over claims, citations, gaps, and disclaimer."""
     payload = _canon_json(
         {

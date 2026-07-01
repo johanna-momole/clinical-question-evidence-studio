@@ -192,8 +192,7 @@ class EvidenceBriefService:
         run_data: dict[str, Any],
         generation_mode: GenerationMode = "deterministic",
         question_text: str = (
-            "What is the evidence for SGLT2 inhibitors "
-            "in T2DM patients with CKD and CVD?"
+            "What is the evidence for SGLT2 inhibitors in T2DM patients with CKD and CVD?"
         ),
         cohort_is_synthetic: bool = True,
         has_candidate_terminology: bool = True,

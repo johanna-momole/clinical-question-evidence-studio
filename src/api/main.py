@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from src.api.routes import briefs as brief_routes
 from src.api.routes import cohorts as cohort_routes
 from src.api.routes import evidence as evidence_routes
+from src.api.routes import exports as export_routes
 from src.api.routes import fhir as fhir_routes
 from src.api.routes import phenotypes as phenotype_routes
 from src.api.routes import questions as question_routes
@@ -91,6 +92,7 @@ app.include_router(cohort_routes.router)
 app.include_router(evidence_routes.router)
 app.include_router(terminology_routes.router)
 app.include_router(brief_routes.router)
+app.include_router(export_routes.router)
 
 
 # ── Response models ────────────────────────────────────────────────────────────
@@ -197,11 +199,43 @@ async def api_info() -> APIInfoResponse:
             },
             {"path": "/briefs/generate", "method": "POST", "phase": "5", "status": "implemented"},
             {"path": "/briefs/{brief_id}", "method": "GET", "phase": "5", "status": "implemented"},
-            {"path": "/briefs/{brief_id}/review", "method": "POST", "phase": "5", "status": "implemented"},
-            {"path": "/briefs/{brief_id}/review-history", "method": "GET", "phase": "5", "status": "implemented"},
-            {"path": "/briefs/{brief_id}/sources", "method": "GET", "phase": "5", "status": "implemented"},
+            {
+                "path": "/briefs/{brief_id}/review",
+                "method": "POST",
+                "phase": "5",
+                "status": "implemented",
+            },
+            {
+                "path": "/briefs/{brief_id}/review-history",
+                "method": "GET",
+                "phase": "5",
+                "status": "implemented",
+            },
+            {
+                "path": "/briefs/{brief_id}/sources",
+                "method": "GET",
+                "phase": "5",
+                "status": "implemented",
+            },
             {"path": "/qa/{run_id}", "method": "GET", "phase": "5", "status": "planned"},
-            {"path": "/exports", "method": "POST", "phase": "6", "status": "planned"},
-            {"path": "/runs/{run_id}", "method": "GET", "phase": "6", "status": "planned"},
+            {
+                "path": "/exports/formats",
+                "method": "GET",
+                "phase": "6",
+                "status": "implemented",
+            },
+            {"path": "/exports", "method": "POST", "phase": "6", "status": "implemented"},
+            {
+                "path": "/exports/download",
+                "method": "POST",
+                "phase": "6",
+                "status": "implemented",
+            },
+            {
+                "path": "/exports/{id}/manifest",
+                "method": "GET",
+                "phase": "6",
+                "status": "implemented",
+            },
         ],
     )
